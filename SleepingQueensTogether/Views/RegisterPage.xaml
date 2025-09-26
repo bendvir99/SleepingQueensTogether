@@ -10,7 +10,7 @@
 
     <Grid
         ColumnDefinitions="*,*"
-        RowDefinitions="Auto,Auto,Auto,Auto"
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto"
         RowSpacing="20">
         <Label
             Grid.ColumnSpan="2"
@@ -18,20 +18,27 @@
             Text="{x:Static m:Strings.RegisterTitleText}" />
         <Label
             Grid.Row="1"
-            Text="{x:Static m:Strings.RegisterUsernameText}"
+            Text="{x:Static m:Strings.EmailText}"
             VerticalOptions="Center" />
         <Border Grid.Row="1" Grid.Column="1">
-            <Entry Placeholder="{x:Static m:Strings.UsernamePlaceholderText}" Text="{Binding Username}" />
+            <Entry Placeholder="{x:Static m:Strings.EmailPlaceholderText}" Text="{Binding Username}" />
         </Border>
         <Label
             Grid.Row="2"
-            Text="{x:Static m:Strings.RegisterPasswordText}"
+            Text="{x:Static m:Strings.UsernameText}"
             VerticalOptions="Center" />
         <Border Grid.Row="2" Grid.Column="1">
+            <Entry Placeholder="{x:Static m:Strings.UsernamePlaceholderText}" Text="{Binding Username}" />
+        </Border>
+        <Label
+            Grid.Row="3"
+            Text="{x:Static m:Strings.PasswordText}"
+            VerticalOptions="Center" />
+        <Border Grid.Row="3" Grid.Column="1">
             <Entry Placeholder="{x:Static m:Strings.PasswordPlaceholderText}" Text="{Binding Password}" />
         </Border>
         <Button
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.ColumnSpan="2"
             Command="{Binding RegisterCommand}"
             Text="{x:Static m:Strings.RegisterButtonText}" />
