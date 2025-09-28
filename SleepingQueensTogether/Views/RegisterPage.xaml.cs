@@ -6,7 +6,7 @@ public partial class RegisterPage : ContentPage
 {
 	public RegisterPage()
 	{
-		InitializeComponent();
-		BindingContext = new RegisterPageViewModel();
+        InitializeComponent();
+		BindingContext = new RegisterPageVM();
 	}
 }

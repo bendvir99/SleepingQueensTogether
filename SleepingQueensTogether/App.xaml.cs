@@ -1,4 +1,5 @@
-﻿using SleepingQueensTogether.Views;
+﻿using SleepingQueensTogether.ModelsLogic;
+using SleepingQueensTogether.Views;
 
 namespace SleepingQueensTogether
 {
@@ -8,7 +9,9 @@ namespace SleepingQueensTogether
         {
             InitializeComponent();
 
-            MainPage = new RegisterPage();
+            User user = new();
+            Page page = user.IsRegistered ? new LoginPage() : new RegisterPage();
+            MainPage = page;
         }
     }
 }

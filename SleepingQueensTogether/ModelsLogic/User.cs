@@ -9,14 +9,16 @@ namespace SleepingQueensTogether.ModelsLogic
 {
     internal class User : UserModel
     {
+        public override bool IsRegistered => !string.IsNullOrWhiteSpace(Preferences.Get(Keys.UsernameKey, string.Empty));
         public override void Register()
         {
             Preferences.Set(Keys.UsernameKey, Username);
+            Preferences.Set(Keys.GmailKey, Email);
+            Preferences.Set(Keys.PasswordKey, Password);
         }
-
-        public User()
+        public override bool Login()
         {
-            Preferences.Get(Keys.UsernameKey, string.Empty);
+            return true;
         }
     }
 }

@@ -9,5 +9,7 @@ namespace SleepingQueensTogether.Models
     internal static class Keys
     {
         public const string UsernameKey = "username";
+        public const string GmailKey = "gmail";
+        public const string PasswordKey = "password";
     }
 }
