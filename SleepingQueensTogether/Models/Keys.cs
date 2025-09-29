@@ -11,5 +11,7 @@ namespace SleepingQueensTogether.Models
         public const string UsernameKey = "username";
         public const string GmailKey = "gmail";
         public const string PasswordKey = "password";
+        public const string JsonApiKey = "AIzaSyCbA0iN_aDgDd7zKl6ybnSteELEbGGV2kI";
+        public const string JsonApiAuthDomainKey = "sleepingqueenstogether" + ".firebaseapp.com";
     }
 }

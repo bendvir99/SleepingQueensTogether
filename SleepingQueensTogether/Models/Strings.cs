@@ -18,5 +18,7 @@ namespace SleepingQueensTogether.Models
         public const string UsernameText = "Username: ";
         public const string EmailText = "Email: ";
         public const string PasswordText = "Password: ";
+        public const string Error = "Error";
+        public const string OK = "OK";
     }
 }
