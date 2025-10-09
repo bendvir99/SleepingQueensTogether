@@ -10,8 +10,8 @@ namespace SleepingQueensTogether
             InitializeComponent();
 
             User user = new();
-            //Page page = user.IsRegistered ? new LoginPage() : new RegisterPage();
-            MainPage = new LoginPage();
+            Page page = user.IsRegistered ? new LoginPage() : new RegisterPage();
+            MainPage = page;
         }
     }
 }
