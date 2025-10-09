@@ -15,6 +15,7 @@ namespace SleepingQueensTogether.Models
         public string Email { get; set; } = string.Empty;
         public abstract bool IsRegistered { get; }
         public abstract void Register();
-        public abstract bool Login();
+        public abstract void RegisterGoogle();
+        public abstract void Login();
     }
 }

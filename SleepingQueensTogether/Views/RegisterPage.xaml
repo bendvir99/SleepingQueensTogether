@@ -6,11 +6,12 @@
     xmlns:m="clr-namespace:SleepingQueensTogether.Models"
     xmlns:vm="clr-namespace:SleepingQueensTogether.ViewModels"
     Title="RegisterPage"
-    x:DataType="vm:RegisterPageVM">
+    x:DataType="vm:RegisterPageVM"
+    IsBusy="{Binding IsBusy}">
 
     <Grid
         ColumnDefinitions="*,*"
-        RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
         RowSpacing="20">
         <Label
             Grid.ColumnSpan="2"
@@ -65,11 +66,12 @@
                 <Button
                     Grid.Column="1"
                     BackgroundColor="Transparent"
+                    Command="{Binding ToggleIsPasswordCommand}"
                     FontFamily="MaterialSymbolsOutlined"
                     FontSize="24"
                     HorizontalOptions="End"
                     Style="{StaticResource IconButtonStyle}"
-                    Text="{Binding IsPassword, Converter={StaticResource passwordIconConvert}}" Command="{Binding ToggleIsPasswordCommand}"/>
+                    Text="{Binding IsPassword, Converter={StaticResource passwordIconConvert}}" />
 
             </Grid>
         </Border>
@@ -78,5 +80,11 @@
             Grid.ColumnSpan="2"
             Command="{Binding RegisterCommand}"
             Text="{x:Static m:Strings.RegisterButtonText}" />
+        <Button
+            Grid.Row="5"
+            Grid.ColumnSpan="2"
+            Command="{Binding RegisterGoogleCommand}"
+            Text="{x:Static m:Strings.RegisterGoogleButtonText}" />
+
     </Grid>
 </ContentPage>

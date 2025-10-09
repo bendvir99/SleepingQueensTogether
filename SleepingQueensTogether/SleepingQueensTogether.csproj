@@ -36,10 +36,14 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<AndroidSigningKeyStore>sleepingqueens.keystore</AndroidSigningKeyStore>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
 	  <ApplicationId>com.meitar.sleepingqueenstogether</ApplicationId>
+	  <AndroidKeyStore>True</AndroidKeyStore>
+	  <AndroidSigningStorePass>sleepingqueenspasswordkey</AndroidSigningStorePass>
+	  <AndroidSigningKeyPass>sleepingqueenspasswordkey</AndroidSigningKeyPass>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
@@ -56,6 +60,9 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
 	  <ApplicationId>com.meitar.sleepingqueenstogether</ApplicationId>
+	  <AndroidKeyStore>True</AndroidKeyStore>
+	  <AndroidSigningStorePass>sleepingqueenspasswordkey</AndroidSigningStorePass>
+	  <AndroidSigningKeyPass>sleepingqueenspasswordkey</AndroidSigningKeyPass>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
@@ -89,12 +96,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiAsset Remove="Resources\Raw\AboutAssets.txt" />
 	  <MauiAsset Remove="Resources\Raw\google-services.json" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <GoogleServicesJson Include="Resources\Raw\AboutAssets.txt" />
 	  <GoogleServicesJson Include="Resources\Raw\google-services.json" />
 	</ItemGroup>
 

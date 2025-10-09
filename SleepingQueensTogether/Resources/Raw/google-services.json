@@ -12,7 +12,20 @@
           "package_name": "com.meitar.sleepingqueenstogether"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "705683475351-412ohb30j929v7jk5sq51pdorlgapunv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meitar.sleepingqueenstogether",
+            "certificate_hash": "6afe6b29b5685622dc5ff1865f523cb24545aa1a"
+          }
+        },
+        {
+          "client_id": "705683475351-n3bts7a4d5p8ou1ajojlto8catie1mpj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCbA0iN_aDgDd7zKl6ybnSteELEbGGV2kI"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705683475351-n3bts7a4d5p8ou1ajojlto8catie1mpj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

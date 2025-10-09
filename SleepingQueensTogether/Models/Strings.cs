@@ -14,11 +14,21 @@ namespace SleepingQueensTogether.Models
         public const string EmailPlaceholderText = "Enter Email";
         public const string PasswordPlaceholderText = "Enter Password";
         public const string RegisterButtonText = "Register";
+        public const string RegisterGoogleButtonText = "Register Using Google ";
         public const string LoginButtonText = "Login";
         public const string UsernameText = "Username: ";
         public const string EmailText = "Email: ";
         public const string PasswordText = "Password: ";
         public const string Error = "Error";
         public const string OK = "OK";
+        public const string InvalidEmail = "InvalidEmailAddress";
+        public const string RegisterFailed = "Register Failed";
+        public const string LoginFailed = "Login Failed";
+        public const string LoginFailedError = "Incorrect Email or Password";
+        public const string RegisterFailedInvalidEmail = "Invalid Email Address";
+        public const string EmailExists = "EmailExists";
+        public const string RegisterFailedEmailExists = "Email Already Exists";
+        public const string WeakPassword = "WeakPassword";
+        public const string RegisterFailedWeakPassword = "Password Too Short (at least 6 characters)";
     }
 }

@@ -17,6 +17,7 @@ namespace SleepingQueensTogether.Models
         public abstract string UserID { get; }
         public abstract void CreateUserWithEmailAndPasswordAsync(string email, string password, string name, Action<System.Threading.Tasks.Task> OnComplete);
         public abstract void SignInWithEmailAndPasswordAsync(string email, string password, Action<System.Threading.Tasks.Task> OnComplete);
+        //public abstract void SignInWithGoogleAsync(Action<System.Threading.Tasks.Task> OnComplete);
         public FbDataModel()
         {
             FirebaseAuthConfig fac = new()

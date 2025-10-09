@@ -9,7 +9,9 @@ namespace SleepingQueensTogether.ViewModels
     {
         private readonly User user = new();
         public ICommand RegisterCommand { get; }
+        public ICommand RegisterGoogleCommand { get; }
         public ICommand ToggleIsPasswordCommand { get; }
+        public bool IsBusy { get; set; } = false;
         public bool IsPassword { get; set; } = true;
         public string Username
         { 
@@ -54,7 +56,8 @@ namespace SleepingQueensTogether.ViewModels
         }
         public RegisterPageVM()
         {
-            RegisterCommand = new Command(Register, CanRegister);
+            RegisterCommand = new Command(async () => await Register(), CanRegister);
+            RegisterGoogleCommand = new Command(RegisterGoogle);
             ToggleIsPasswordCommand = new Command(ToggleIsPassword);
         }
 
@@ -63,9 +66,18 @@ namespace SleepingQueensTogether.ViewModels
             return (!string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email));
         }
 
-        private void Register()
+        private async Task Register()
         {
+            IsBusy = true;
+            OnPropertyChanged(nameof(IsBusy));
+            await Task.Delay(5000);
+            IsBusy = false;
+            OnPropertyChanged(nameof(IsBusy));
             user.Register();
+        }
+        private void RegisterGoogle()
+        {
+            user.RegisterGoogle();
         }
     }
 }
