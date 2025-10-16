@@ -16,19 +16,18 @@ namespace SleepingQueensTogether.ModelsLogic
         }
         //public override async void SignInWithGoogleAsync(Action<System.Threading.Tasks.Task> OnComplete)
         //{
-        //    SignInRedirectDelegate redirectHandler = (string redirectUri) =>
-        //    {
-        //        // Use WebAuthenticator to open the popup
-        //        Task<WebAuthenticatorResult> authTask = WebAuthenticator.AuthenticateAsync(
-        //            new Uri("https://accounts.google.com/o/oauth2/v2/auth?client_id=705683475351-412ohb30j929v7jk5sq51pdorlgapunv.apps.googleusercontent.com&response_type=token&scope=email profile"),
-        //            new Uri(redirectUri)
-        //        );
+        //    GoogleAuthService google = new GoogleAuthService();
+        //    string idToken = await google.GetGoogleIdTokenAsync();
 
-        //        // Convert Task<WebAuthenticatorResult> -> Task<string>
-        //        Task<string> stringTask = authTask.ContinueWith(t => t.Result?.AccessToken ?? string.Empty);
-        //        return stringTask;
-        //    };
-        //    await facl.SignInWithRedirectAsync(FirebaseProviderType.Google, redirectHandler).ContinueWith(OnComplete);
+        //    if (string.IsNullOrEmpty(idToken))
+        //    {
+        //        throw new Exception("No Google ID token returned.");
+        //    }
+
+        //    // Correct call for FirebaseAuthentication.net
+        //    Firebase.Auth.FirebaseAuthLink user = await facl.SignInWithOAuthAsync("google.com", idToken);
+
+        //    OnComplete(Task.CompletedTask);
         //}
 
         public override string DisplayName

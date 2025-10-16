@@ -30,5 +30,6 @@ namespace SleepingQueensTogether.Models
         public const string RegisterFailedEmailExists = "Email Already Exists";
         public const string WeakPassword = "WeakPassword";
         public const string RegisterFailedWeakPassword = "Password Too Short (at least 6 characters)";
+        public const string ResetPassword = "Forgot Your Password?";
     }
 }

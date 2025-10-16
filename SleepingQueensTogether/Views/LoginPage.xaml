@@ -10,7 +10,7 @@
     IsBusy="{Binding IsBusy}">
     <Grid
         ColumnDefinitions="*,*"
-        RowDefinitions="Auto,Auto,Auto,Auto"
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto"
         RowSpacing="20">
         <Label
             Grid.ColumnSpan="2"
@@ -63,5 +63,16 @@
             Grid.ColumnSpan="2"
             Command="{Binding LoginCommand}"
             Text="{x:Static m:Strings.LoginButtonText}" />
+        <Label
+            Grid.Row="4"
+            Grid.ColumnSpan="2"
+            Text="{x:Static m:Strings.ResetPassword}"
+            TextColor="DodgerBlue"
+            TextDecorations="Underline">
+            <!--<Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="" />
+            </Label.GestureRecognizers>-->
+        </Label>
+
     </Grid>
 </ContentPage>
