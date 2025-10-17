@@ -1,10 +1,12 @@
-﻿using SleepingQueensTogether.Models;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using SleepingQueensTogether.Models;
 
 namespace SleepingQueensTogether.ModelsLogic
 {
     internal class User : UserModel
     {
-        public override bool IsRegistered => !string.IsNullOrWhiteSpace(Preferences.Get(Keys.UsernameKey, string.Empty));
+        public override bool IsRegistered => !string.IsNullOrWhiteSpace(Preferences.Get(Keys.GmailKey, string.Empty));
         public override void Register()
         {
             fbd.CreateUserWithEmailAndPasswordAsync(Email, Password, Username,OnCompleteRegister);
@@ -17,38 +19,27 @@ namespace SleepingQueensTogether.ModelsLogic
         private void OnCompleteRegister(Task task)
         {
             if (task.IsCompletedSuccessfully)
+            {
                 SaveToPreferences();
+                OnAuthenticationComplete?.Invoke(this, EventArgs.Empty);
+            }
             else
             {
                 if (task.Exception != null)
                 {
                     Exception ex = task.Exception.InnerException ?? task.Exception;
 
-                    Console.WriteLine(ex.Message);
-
                     if (ex.Message.Contains(Strings.InvalidEmail))
                     {
-                        MainThread.BeginInvokeOnMainThread(async () =>
-                        {
-                            if (Application.Current?.MainPage != null)
-                                await Application.Current.MainPage.DisplayAlert(Strings.RegisterFailed, Strings.RegisterFailedInvalidEmail, Strings.OK);
-                        });
+                        ToastMake(Strings.RegisterFailedInvalidEmail);
                     }
                     else if (ex.Message.Contains(Strings.EmailExists))
                     {
-                        MainThread.BeginInvokeOnMainThread(async () =>
-                        {
-                            if (Application.Current?.MainPage != null)
-                                await Application.Current.MainPage.DisplayAlert(Strings.RegisterFailed, Strings.RegisterFailedEmailExists, Strings.OK);
-                        });
+                        ToastMake(Strings.RegisterFailedEmailExists);
                     }
                     else if (ex.Message.Contains(Strings.WeakPassword))
                     {
-                        MainThread.BeginInvokeOnMainThread(async () =>
-                        {
-                            if (Application.Current?.MainPage != null)
-                                await Application.Current.MainPage.DisplayAlert(Strings.RegisterFailed, Strings.RegisterFailedWeakPassword, Strings.OK);
-                        });
+                        ToastMake(Strings.RegisterFailedWeakPassword);
                     }
                 }
 
@@ -60,18 +51,17 @@ namespace SleepingQueensTogether.ModelsLogic
         private void OnCompleteLogin(Task task)
         {
             if (task.IsCompletedSuccessfully)
+            {
                 SaveToPreferences();
+                OnAuthenticationComplete?.Invoke(this, EventArgs.Empty);
+            }
             else
             {
-                MainThread.BeginInvokeOnMainThread(async () =>
-                {
-                    if (Application.Current?.MainPage != null)
-                        await Application.Current.MainPage.DisplayAlert(Strings.LoginFailed, Strings.LoginFailedError, Strings.OK);
-                });
-
+                ToastMake(Strings.LoginFailedError);
                 Username = string.Empty;
                 Email = string.Empty;
                 Password = string.Empty;
+
             }
         }
 
@@ -80,11 +70,20 @@ namespace SleepingQueensTogether.ModelsLogic
             Preferences.Set(Keys.UsernameKey, Username);
             Preferences.Set(Keys.GmailKey, Email);
             Preferences.Set(Keys.PasswordKey, Password);
+            Preferences.Set(Keys.RememberMeKey, RememberMe);
         }
 
         public override void Login()
         {
             fbd.SignInWithEmailAndPasswordAsync(Email, Password, OnCompleteLogin);
+        }
+
+        public static void ToastMake(string message)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                Toast.Make(message, ToastDuration.Long).Show();
+            });
         }
     }
 }

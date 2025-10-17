@@ -8,10 +8,7 @@
     Title="LoginPage"
     x:DataType="vm:LoginPageVM"
     IsBusy="{Binding IsBusy}">
-    <Grid
-        ColumnDefinitions="*,*"
-        RowDefinitions="Auto,Auto,Auto,Auto,Auto"
-        RowSpacing="20">
+    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
         <Label
             Grid.ColumnSpan="2"
             FontAttributes="Bold"
@@ -58,13 +55,27 @@
 
             </Grid>
         </Border>
-        <Button
+        <Border
             Grid.Row="3"
+            Grid.ColumnSpan="2"
+            StrokeThickness="0">
+            <Grid ColumnDefinitions="Auto,*">
+                <CheckBox IsChecked="{Binding RememberMe}" />
+                <Label
+                    Grid.Column="1"
+                    HorizontalOptions="Start"
+                    Text="{x:Static m:Strings.RememberMe}"
+                    VerticalOptions="Center" />
+
+            </Grid>
+        </Border>
+        <Button
+            Grid.Row="4"
             Grid.ColumnSpan="2"
             Command="{Binding LoginCommand}"
             Text="{x:Static m:Strings.LoginButtonText}" />
         <Label
-            Grid.Row="4"
+            Grid.Row="5"
             Grid.ColumnSpan="2"
             Text="{x:Static m:Strings.ResetPassword}"
             TextColor="DodgerBlue"

@@ -1,4 +1,6 @@
-﻿using SleepingQueensTogether.Models;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using SleepingQueensTogether.Models;
 using SleepingQueensTogether.ModelsLogic;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
@@ -56,9 +58,21 @@ namespace SleepingQueensTogether.ViewModels
         }
         public RegisterPageVM()
         {
-            RegisterCommand = new Command(async () => await Register(), CanRegister);
+            RegisterCommand = new Command(Register, CanRegister);
             RegisterGoogleCommand = new Command(RegisterGoogle);
             ToggleIsPasswordCommand = new Command(ToggleIsPassword);
+            user.OnAuthenticationComplete += OnAuthComplete;
+        }
+
+        private void OnAuthComplete(object? sender, EventArgs e)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (Application.Current != null)
+                {
+                    Application.Current.MainPage = new AppShell();
+                }
+            });
         }
 
         private bool CanRegister()
@@ -66,13 +80,8 @@ namespace SleepingQueensTogether.ViewModels
             return (!string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email));
         }
 
-        private async Task Register()
+        private void Register()
         {
-            IsBusy = true;
-            OnPropertyChanged(nameof(IsBusy));
-            await Task.Delay(5000);
-            IsBusy = false;
-            OnPropertyChanged(nameof(IsBusy));
             user.Register();
         }
         private void RegisterGoogle()

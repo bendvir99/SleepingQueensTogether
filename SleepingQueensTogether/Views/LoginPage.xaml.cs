@@ -9,4 +9,9 @@ public partial class LoginPage : ContentPage
 		InitializeComponent();
 		BindingContext = new LoginPageVM();
 	}
+
+    private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
 }

@@ -11,6 +11,11 @@ namespace SleepingQueensTogether.ViewModels
         public ICommand ToggleIsPasswordCommand { get; }
         public bool IsBusy { get; set; } = false;
         public bool IsPassword { get; set; } = true;
+        public bool RememberMe
+        {
+            get => user.RememberMe;
+            set => user.RememberMe = value;
+        }
         public string Password
         {
             get => user.Password;
@@ -42,8 +47,25 @@ namespace SleepingQueensTogether.ViewModels
         }
         public LoginPageVM()
         {
-            LoginCommand = new Command(async () => await Login(), CanLogin);
+            LoginCommand = new Command(Login, CanLogin);
             ToggleIsPasswordCommand = new Command(ToggleIsPassword);
+            user.OnAuthenticationComplete += OnAuthComplete;
+            if (Preferences.Get(Keys.RememberMeKey, false))
+            {
+                Password = Preferences.Get(Keys.PasswordKey, string.Empty);
+                Email = Preferences.Get(Keys.GmailKey, string.Empty);
+            }
+        }
+
+        private void OnAuthComplete(object? sender, EventArgs e)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (Application.Current != null)
+                {
+                    Application.Current.MainPage = new AppShell();
+                }
+            });
         }
 
         private bool CanLogin()
@@ -51,13 +73,8 @@ namespace SleepingQueensTogether.ViewModels
             return (!string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email));
         }
 
-        private async Task Login()
+        private void Login()
         {
-            IsBusy = true;
-            OnPropertyChanged(nameof(IsBusy));
-            await Task.Delay(5000);
-            IsBusy = false;
-            OnPropertyChanged(nameof(IsBusy));
             user.Login();
         }
     }

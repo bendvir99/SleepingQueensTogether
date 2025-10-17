@@ -31,5 +31,6 @@ namespace SleepingQueensTogether.Models
         public const string WeakPassword = "WeakPassword";
         public const string RegisterFailedWeakPassword = "Password Too Short (at least 6 characters)";
         public const string ResetPassword = "Forgot Your Password?";
+        public const string RememberMe = "Remember me";
     }
 }

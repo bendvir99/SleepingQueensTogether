@@ -13,6 +13,8 @@ namespace SleepingQueensTogether.Models
         public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
+        public EventHandler? OnAuthenticationComplete;
+        public bool RememberMe { get; set; } = Preferences.Get(Keys.RememberMeKey, false);
         public abstract bool IsRegistered { get; }
         public abstract void Register();
         public abstract void RegisterGoogle();
