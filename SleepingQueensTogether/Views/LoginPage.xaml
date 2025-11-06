@@ -60,7 +60,7 @@
             Grid.ColumnSpan="2"
             StrokeThickness="0">
             <Grid ColumnDefinitions="Auto,*">
-                <CheckBox IsChecked="{Binding RememberMe}" />
+                <CheckBox IsChecked="{Binding RememberMe}"   />
                 <Label
                     Grid.Column="1"
                     HorizontalOptions="Start"

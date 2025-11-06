@@ -14,5 +14,6 @@ namespace SleepingQueensTogether.Models
         public const string JsonApiKey = "AIzaSyCbA0iN_aDgDd7zKl6ybnSteELEbGGV2kI";
         public const string JsonApiAuthDomainKey = "sleepingqueenstogether" + ".firebaseapp.com";
         public const string RememberMeKey = "RememberMe";
+        public const string GamesCollection = "Games";
     }
 }

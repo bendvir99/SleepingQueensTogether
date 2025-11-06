@@ -16,6 +16,12 @@ namespace SleepingQueensTogether.ModelsLogic
             //fbd.SignInWithGoogleAsync(OnComplete);
         }
 
+        private void ShowAlert(string message)
+        {
+            message = fbd.GetErrorMessage(message);
+            ToastMake(message);
+        }
+
         private void OnCompleteRegister(Task task)
         {
             if (task.IsCompletedSuccessfully)
@@ -29,20 +35,9 @@ namespace SleepingQueensTogether.ModelsLogic
                 {
                     Exception ex = task.Exception.InnerException ?? task.Exception;
 
-                    if (ex.Message.Contains(Strings.InvalidEmail))
-                    {
-                        ToastMake(Strings.RegisterFailedInvalidEmail);
-                    }
-                    else if (ex.Message.Contains(Strings.EmailExists))
-                    {
-                        ToastMake(Strings.RegisterFailedEmailExists);
-                    }
-                    else if (ex.Message.Contains(Strings.WeakPassword))
-                    {
-                        ToastMake(Strings.RegisterFailedWeakPassword);
-                    }
-                }
+                    ShowAlert(ex.Message);
 
+                }
                 Username = string.Empty;
                 Email = string.Empty;
                 Password = string.Empty;

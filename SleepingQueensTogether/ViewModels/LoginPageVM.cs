@@ -14,7 +14,11 @@ namespace SleepingQueensTogether.ViewModels
         public bool RememberMe
         {
             get => user.RememberMe;
-            set => user.RememberMe = value;
+            set 
+            { 
+                user.RememberMe = value;
+
+            } 
         }
         public string Password
         {

@@ -1,5 +1,6 @@
 ﻿using Firebase.Auth;
 using Firebase.Auth.Providers;
+using Plugin.CloudFirestore;
 using SleepingQueensTogether.Models;
 
 namespace SleepingQueensTogether.ModelsLogic
@@ -46,6 +47,47 @@ namespace SleepingQueensTogether.ModelsLogic
             {
                 return facl.User.Uid;
             }
+        }
+        public override string GetErrorMessage(string message)
+        {
+            if (message.Contains(Strings.InvalidEmail))
+            {
+                return Strings.RegisterFailedInvalidEmail;
+            }
+            else if (message.Contains(Strings.EmailExists))
+            {
+                return (Strings.RegisterFailedEmailExists);
+            }
+            else if (message.Contains(Strings.WeakPassword))
+            {
+                return (Strings.RegisterFailedWeakPassword);
+            }
+            else
+            {
+                return (Strings.RegisterUnknownError);
+            }
+        }
+        public override string SetDocument(object obj, string collectonName, string id, Action<System.Threading.Tasks.Task> OnComplete)
+        {
+            IDocumentReference dr = string.IsNullOrEmpty(id) ? fdb.Collection(collectonName).Document() : fdb.Collection(collectonName).Document(id);
+            dr.SetAsync(obj).ContinueWith(OnComplete);
+            return dr.Id;
+        }
+        public override IListenerRegistration AddSnapshotListener(string collectonName, Plugin.CloudFirestore.QuerySnapshotHandler OnChange)
+        {
+            ICollectionReference cr = fdb.Collection(collectonName);
+            return cr.AddSnapshotListener(OnChange);
+        }
+        public override IListenerRegistration AddSnapshotListener(string collectonName, string id, Plugin.CloudFirestore.DocumentSnapshotHandler OnChange)
+        {
+            IDocumentReference cr = fdb.Collection(collectonName).Document(id);
+            return cr.AddSnapshotListener(OnChange);
+        }
+        public async void GetDocumentsWhereEqualTo(string collectonName, string fName, object fValue, Action<IQuerySnapshot> OnComplete)
+        {
+            ICollectionReference cr = fdb.Collection(collectonName);
+            IQuerySnapshot qs = await cr.WhereEqualsTo(fName, fValue).GetAsync();
+            OnComplete(qs);
         }
     }
 }

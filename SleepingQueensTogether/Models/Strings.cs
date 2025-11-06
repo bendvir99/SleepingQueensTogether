@@ -26,11 +26,14 @@ namespace SleepingQueensTogether.Models
         public const string LoginFailed = "Login Failed";
         public const string LoginFailedError = "Incorrect Email or Password";
         public const string RegisterFailedInvalidEmail = "Invalid Email Address";
+        public const string RegisterUnknownError = "Unknown Error";
         public const string EmailExists = "EmailExists";
         public const string RegisterFailedEmailExists = "Email Already Exists";
         public const string WeakPassword = "WeakPassword";
         public const string RegisterFailedWeakPassword = "Password Too Short (at least 6 characters)";
         public const string ResetPassword = "Forgot Your Password?";
         public const string RememberMe = "Remember me";
+        public const string SelectPlayerCount = "Select Player Count";
+        public const string AddGame = "Add Game";
     }
 }
