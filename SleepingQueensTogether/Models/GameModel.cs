@@ -16,6 +16,8 @@ namespace SleepingQueensTogether.Models
         public string HostName { get; set; } = string.Empty;
         public DateTime Created { get; set; }
         public int PlayerCount { get; set; }
+        [Ignored]
+        public string PlayerCountName => $"{PlayerCount} Players";
         public bool IsFull { get; set; }
         public abstract void SetDocument(Action<System.Threading.Tasks.Task> OnComplete);
     }

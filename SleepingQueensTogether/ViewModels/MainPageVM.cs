@@ -16,12 +16,12 @@ namespace SleepingQueensTogether.ViewModels
         private readonly Games games = new();
         public bool IsBusy => games.IsBusy;
         public ObservableCollection<GameSize>? GameSizes { get => games.GameSizes; set => games.GameSizes = value; }
-        public GameSize SelectedGameSize { get; set; } = new GameSize();
+        public GameSize SelectedGameSize { get => games.SelectedGameSize; set => games.SelectedGameSize = value; }
         public ICommand AddGameCommand => new Command(AddGame);
 
         private void AddGame()
         {
-            games.AddGame(SelectedGameSize);
+            games.AddGame();
             OnPropertyChanged(nameof(IsBusy));
         }
         public ObservableCollection<Game>? GamesList => games.GamesList;

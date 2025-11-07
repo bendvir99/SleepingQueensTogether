@@ -11,7 +11,7 @@
 
     <Grid
         ColumnDefinitions="*,*"
-        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto"
         RowSpacing="20">
         <Label
             Grid.ColumnSpan="2"
@@ -80,11 +80,6 @@
             Grid.ColumnSpan="2"
             Command="{Binding RegisterCommand}"
             Text="{x:Static m:Strings.RegisterButtonText}" />
-        <Button
-            Grid.Row="5"
-            Grid.ColumnSpan="2"
-            Command="{Binding RegisterGoogleCommand}"
-            Text="{x:Static m:Strings.RegisterGoogleButtonText}" />
 
     </Grid>
 </ContentPage>

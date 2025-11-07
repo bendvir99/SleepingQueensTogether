@@ -80,9 +80,9 @@
             Text="{x:Static m:Strings.ResetPassword}"
             TextColor="DodgerBlue"
             TextDecorations="Underline">
-            <!--<Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="" />
-            </Label.GestureRecognizers>-->
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ToggleIsPasswordCommand}" />
+            </Label.GestureRecognizers>
         </Label>
 
     </Grid>

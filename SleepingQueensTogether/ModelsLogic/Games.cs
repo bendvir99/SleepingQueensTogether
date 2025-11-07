@@ -1,20 +1,14 @@
-﻿using Microsoft.Maui.Controls;
-using Plugin.CloudFirestore;
+﻿using Plugin.CloudFirestore;
 using SleepingQueensTogether.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SleepingQueensTogether.ModelsLogic
 {
     class Games : GamesModel
     {
-        internal void AddGame(GameSize selectedGameSize)
+        internal void AddGame()
         {
             IsBusy = true;
-            Game game = new(selectedGameSize);
+            Game game = new(SelectedGameSize);
             game.SetDocument(OnComplete);
         }
         private void OnComplete(Task task)

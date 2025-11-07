@@ -60,7 +60,7 @@ namespace SleepingQueensTogether.ModelsLogic
             }
         }
 
-        private void SaveToPreferences()
+        public void SaveToPreferences()
         {
             Preferences.Set(Keys.UsernameKey, Username);
             Preferences.Set(Keys.GmailKey, Email);

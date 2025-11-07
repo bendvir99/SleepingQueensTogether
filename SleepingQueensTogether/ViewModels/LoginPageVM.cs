@@ -17,7 +17,7 @@ namespace SleepingQueensTogether.ViewModels
             set 
             { 
                 user.RememberMe = value;
-
+                Preferences.Set(Keys.RememberMeKey, value);
             } 
         }
         public string Password
