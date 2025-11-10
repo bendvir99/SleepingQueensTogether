@@ -1,15 +1,23 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using SleepingQueensTogether.Models;
+using SleepingQueensTogether.ViewModels;
 
 namespace SleepingQueensTogether.ModelsLogic
 {
     internal class User : UserModel
     {
-        public override bool IsRegistered => !string.IsNullOrWhiteSpace(Preferences.Get(Keys.GmailKey, string.Empty));
         public override void Register()
         {
-            fbd.CreateUserWithEmailAndPasswordAsync(Email, Password, Username,OnCompleteRegister);
+            IsBusy = true;
+            CurrentAction = Actions.Register;
+            fbd.CreateUserWithEmailAndPasswordAsync(Email, Password, Name,OnCompleteRegister);
+        }
+        public void Login()
+        {
+            IsBusy = true;
+            
+            fbd.SignInWithEmailAndPasswordAsync(Email, Password, OnCompleteLogin);
         }
         public override void RegisterGoogle()
         {
@@ -24,10 +32,11 @@ namespace SleepingQueensTogether.ModelsLogic
 
         private void OnCompleteRegister(Task task)
         {
+            IsBusy = false;
             if (task.IsCompletedSuccessfully)
             {
                 SaveToPreferences();
-                OnAuthenticationComplete?.Invoke(this, EventArgs.Empty);
+                OnAuthenticationComplete?.Invoke(this, true);
             }
             else
             {
@@ -36,24 +45,27 @@ namespace SleepingQueensTogether.ModelsLogic
                     Exception ex = task.Exception.InnerException ?? task.Exception;
 
                     ShowAlert(ex.Message);
+                    OnAuthenticationComplete?.Invoke(this, false);
 
                 }
-                Username = string.Empty;
+                Name = string.Empty;
                 Email = string.Empty;
                 Password = string.Empty;
             }
         }
         private void OnCompleteLogin(Task task)
         {
+            IsBusy = false;
             if (task.IsCompletedSuccessfully)
             {
                 SaveToPreferences();
-                OnAuthenticationComplete?.Invoke(this, EventArgs.Empty);
+                OnAuthenticationComplete?.Invoke(this, true);
             }
             else
             {
                 ToastMake(Strings.LoginFailedError);
-                Username = string.Empty;
+                OnAuthenticationComplete?.Invoke(this, false);
+                Name = string.Empty;
                 Email = string.Empty;
                 Password = string.Empty;
 
@@ -62,15 +74,18 @@ namespace SleepingQueensTogether.ModelsLogic
 
         public void SaveToPreferences()
         {
-            Preferences.Set(Keys.UsernameKey, Username);
+            Preferences.Set(Keys.UsernameKey, Name);
             Preferences.Set(Keys.GmailKey, Email);
             Preferences.Set(Keys.PasswordKey, Password);
             Preferences.Set(Keys.RememberMeKey, RememberMe);
         }
-
-        public override void Login()
+        public override bool IsValidRegister()
         {
-            fbd.SignInWithEmailAndPasswordAsync(Email, Password, OnCompleteLogin);
+            return !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email);
+        }
+        public override bool IsValidLogin()
+        {
+            return !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email);
         }
 
         public static void ToastMake(string message)

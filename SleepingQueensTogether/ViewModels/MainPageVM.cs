@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui.Controls;
 using SleepingQueensTogether.Models;
 using SleepingQueensTogether.ModelsLogic;
+using SleepingQueensTogether.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,22 @@ namespace SleepingQueensTogether.ViewModels
         public ObservableCollection<GameSize>? GameSizes { get => games.GameSizes; set => games.GameSizes = value; }
         public GameSize SelectedGameSize { get => games.SelectedGameSize; set => games.SelectedGameSize = value; }
         public ICommand AddGameCommand => new Command(AddGame);
+        public Game? SelectedItem
+        {
+            get => games.CurrentGame;
+
+            set
+            {
+                if (value != null)
+                {
+                    games.CurrentGame = value;
+                    MainThread.InvokeOnMainThreadAsync(() =>
+                    {
+                        Shell.Current.Navigation.PushAsync(new GamePage(value), true);
+                    });
+                }
+            }
+        }
 
         private void AddGame()
         {
@@ -36,10 +53,14 @@ namespace SleepingQueensTogether.ViewModels
             OnPropertyChanged(nameof(GamesList));
         }
 
-        private void OnGameAdded(object? sender, bool e)
+        private void OnGameAdded(object? sender, Game game)
         {
             OnPropertyChanged(nameof(IsBusy));
-        }
+            MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                Shell.Current.Navigation.PushAsync(new GamePage(game), true);
+            });
+        }        
         internal void AddSnapshotListener()
         {
             games.AddSnapshotListener();

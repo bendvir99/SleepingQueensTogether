@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace SleepingQueensTogether.ModelsLogic
 {
-    class Game : GameModel
+    public class Game : GameModel
     {
+        public override string OpponentName => IsHost ? GuestName : HostName;
+
         internal Game(GameSize selectedGameSize)
         {
             HostName = fbd.DisplayName;

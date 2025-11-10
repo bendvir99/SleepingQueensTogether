@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace SleepingQueensTogether.Models
 {
-    abstract class FbDataModel
+    public abstract class FbDataModel
     {
         protected FirebaseAuthClient facl;
         protected IFirestore fdb;
-        public abstract string DisplayName { get; }
-        public abstract string UserID { get; }
+        public string DisplayName => facl != null && facl.User != null ? facl.User.Info.DisplayName : string.Empty;
+        public string UserId => facl != null ? facl.User.Uid : string.Empty;
         public abstract void CreateUserWithEmailAndPasswordAsync(string email, string password, string name, Action<System.Threading.Tasks.Task> OnComplete);
         public abstract void SignInWithEmailAndPasswordAsync(string email, string password, Action<System.Threading.Tasks.Task> OnComplete);
         public abstract string GetErrorMessage(string message);

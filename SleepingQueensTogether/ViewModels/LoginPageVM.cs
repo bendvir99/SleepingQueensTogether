@@ -9,8 +9,10 @@ namespace SleepingQueensTogether.ViewModels
         private readonly User user = new();
         public ICommand LoginCommand { get; }
         public ICommand ToggleIsPasswordCommand { get; }
-        public bool IsBusy { get; set; } = false;
+        public bool IsBusy => user.IsBusy;
         public bool IsPassword { get; set; } = true;
+        public bool IsRegistered => user.IsRegistered;
+        public bool IsEnabled { get; set; } = true;
         public bool RememberMe
         {
             get => user.RememberMe;
@@ -61,25 +63,31 @@ namespace SleepingQueensTogether.ViewModels
             }
         }
 
-        private void OnAuthComplete(object? sender, EventArgs e)
+        private void OnAuthComplete(object? sender, bool success)
         {
-            MainThread.BeginInvokeOnMainThread(() =>
+            IsEnabled = true;
+            OnPropertyChanged(nameof(IsBusy));
+            OnPropertyChanged(nameof(IsEnabled));
+            if (success && Application.Current != null)
             {
-                if (Application.Current != null)
+                MainThread.InvokeOnMainThreadAsync(() =>
                 {
                     Application.Current.MainPage = new AppShell();
-                }
-            });
+                });
+            }
         }
 
         private bool CanLogin()
         {
-            return (!string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email));
+            return user.IsValidLogin();
         }
 
         private void Login()
         {
             user.Login();
+            IsEnabled = false;
+            OnPropertyChanged(nameof(IsBusy));
+            OnPropertyChanged(nameof(IsEnabled));
         }
     }
 }

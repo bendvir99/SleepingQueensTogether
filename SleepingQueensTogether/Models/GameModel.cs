@@ -8,17 +8,24 @@ using System.Threading.Tasks;
 
 namespace SleepingQueensTogether.Models
 {
-    abstract class GameModel
+    public abstract class GameModel
     {
-        protected FbData fbd = new();
+        protected static FbData fbd = new();
         [Ignored]
         public string Id { get; set; } = string.Empty;
         public string HostName { get; set; } = string.Empty;
+        public string GuestName { get; set; } = string.Empty;
         public DateTime Created { get; set; }
         public int PlayerCount { get; set; }
+        public bool IsFull { get; set; }
         [Ignored]
         public string PlayerCountName => $"{PlayerCount} Players";
-        public bool IsFull { get; set; }
+        [Ignored]
+        public string MyName { get; set; } = fbd.DisplayName;
+        [Ignored]
+        public bool IsHost { get; set; }
+        [Ignored]
+        public abstract string OpponentName { get; }
         public abstract void SetDocument(Action<System.Threading.Tasks.Task> OnComplete);
     }
 }

@@ -5,7 +5,7 @@ using SleepingQueensTogether.Models;
 
 namespace SleepingQueensTogether.ModelsLogic
 {
-    internal class FbData : FbDataModel
+    public class FbData : FbDataModel
     {
         public override async void CreateUserWithEmailAndPasswordAsync(string email, string password, string name, Action<System.Threading.Tasks.Task> OnComplete)
         {
@@ -31,23 +31,6 @@ namespace SleepingQueensTogether.ModelsLogic
         //    OnComplete(Task.CompletedTask);
         //}
 
-        public override string DisplayName
-        {
-            get
-            {
-                string dn = string.Empty;
-                if (facl.User != null)
-                    dn = facl.User.Info.DisplayName;
-                return dn;
-            }
-        }
-        public override string UserID
-        {
-            get
-            {
-                return facl.User.Uid;
-            }
-        }
         public override string GetErrorMessage(string message)
         {
             if (message.Contains(Strings.InvalidEmail))

@@ -11,7 +11,7 @@
     <VerticalStackLayout>
         <Grid
             Padding="5"
-            ColumnDefinitions="*,*"
+            ColumnDefinitions="*,1.4*"
             ColumnSpacing="5">
             <Picker
                 Title="{x:Static m:Strings.SelectPlayerCount}"
@@ -28,11 +28,11 @@
                 HorizontalOptions="Fill"
                 Text="{x:Static m:Strings.AddGame}" />
         </Grid>
-        <ListView ItemsSource="{Binding GamesList}">
+        <ListView ItemsSource="{Binding GamesList}" SelectedItem="{Binding SelectedItem}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="m:GameModel">
                     <ViewCell>
-                        <Grid ColumnDefinitions="*,1.5*,*">
+                        <Grid ColumnDefinitions="*,2*,0.5*">
                             <Label
                                 Grid.Column="0"
                                 Margin="20,0,0,0"
@@ -43,14 +43,14 @@
                                 VerticalOptions="Center" />
                             <Label
                                 Grid.Column="1"
-                                FontSize="15"
                                 Margin="20,0,0,0"
+                                FontSize="15"
                                 Text="{Binding Created}"
                                 VerticalOptions="Center" />
                             <Label
                                 Grid.Column="2"
-                                FontSize="15"
                                 Margin="20,0,0,0"
+                                FontSize="15"
                                 HorizontalOptions="Center"
                                 Text="{Binding PlayerCountName}"
                                 VerticalOptions="Center" />

@@ -13,16 +13,18 @@ namespace SleepingQueensTogether.ViewModels
         public ICommand RegisterCommand { get; }
         public ICommand RegisterGoogleCommand { get; }
         public ICommand ToggleIsPasswordCommand { get; }
-        public bool IsBusy { get; set; } = false;
+        public bool IsBusy => user.IsBusy;
         public bool IsPassword { get; set; } = true;
-        public string Username
+        public bool IsEnabled { get; set; } = true;
+        public bool IsRegistered => user.IsRegistered;
+        public string Name
         { 
-            get => user.Username;
+            get => user.Name;
             set
             {
-                if (user.Username != value)
+                if (user.Name != value)
                 {
-                    user.Username = value;
+                    user.Name = value;
                     (RegisterCommand as Command)?.ChangeCanExecute();
                 }
             }
@@ -64,29 +66,37 @@ namespace SleepingQueensTogether.ViewModels
             user.OnAuthenticationComplete += OnAuthComplete;
         }
 
-        private void OnAuthComplete(object? sender, EventArgs e)
+        private void OnAuthComplete(object? sender, bool success)
         {
-            MainThread.BeginInvokeOnMainThread(() =>
+            IsEnabled = true;
+            OnPropertyChanged(nameof(IsBusy));
+            OnPropertyChanged(nameof(IsBusy));
+            if (success && Application.Current != null)
             {
-                if (Application.Current != null)
+                MainThread.InvokeOnMainThreadAsync(() =>
                 {
                     Application.Current.MainPage = new AppShell();
-                }
-            });
+                });
+            }
         }
 
         private bool CanRegister()
         {
-            return (!string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email));
+            return user.IsValidRegister();
         }
 
         private void Register()
         {
             user.Register();
+            IsEnabled = false;
+            OnPropertyChanged(nameof(IsBusy));
+            OnPropertyChanged(nameof(IsEnabled));
+
         }
         private void RegisterGoogle()
         {
             user.RegisterGoogle();
+            OnPropertyChanged(nameof(IsBusy));
         }
     }
 }

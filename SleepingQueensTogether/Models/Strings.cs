@@ -21,6 +21,8 @@ namespace SleepingQueensTogether.Models
         public const string PasswordText = "Password: ";
         public const string Error = "Error";
         public const string OK = "OK";
+        public const string Register = "Register";
+        public const string Login = "Login";
         public const string InvalidEmail = "InvalidEmailAddress";
         public const string RegisterFailed = "Register Failed";
         public const string LoginFailed = "Login Failed";
@@ -35,5 +37,7 @@ namespace SleepingQueensTogether.Models
         public const string RememberMe = "Remember me";
         public const string SelectPlayerCount = "Select Player Count";
         public const string AddGame = "Add Game";
+        public const string JoinGameErr = "Error joining game";
+
     }
 }
