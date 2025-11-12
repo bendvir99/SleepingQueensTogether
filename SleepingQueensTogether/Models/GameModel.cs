@@ -1,4 +1,5 @@
-﻿using Plugin.CloudFirestore.Attributes;
+﻿using Plugin.CloudFirestore;
+using Plugin.CloudFirestore.Attributes;
 using SleepingQueensTogether.ModelsLogic;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,11 @@ namespace SleepingQueensTogether.Models
         protected static FbData fbd = new();
         [Ignored]
         public string Id { get; set; } = string.Empty;
-        public string HostName { get; set; } = string.Empty;
-        public string GuestName { get; set; } = string.Empty;
+        public string Player1Number { get; set; } = string.Empty;
+        public string Player2Number { get; set; } = string.Empty;
+        public string Player3Number { get; set; } = string.Empty;
+        public string Player4Number { get; set; } = string.Empty;
+        public int PlayerAmount { get; set; } = 1;
         public DateTime Created { get; set; }
         public int PlayerCount { get; set; }
         public bool IsFull { get; set; }
@@ -23,9 +27,14 @@ namespace SleepingQueensTogether.Models
         [Ignored]
         public string MyName { get; set; } = fbd.DisplayName;
         [Ignored]
-        public bool IsHost { get; set; }
+        public bool IsHostUser { get; set; }
         [Ignored]
-        public abstract string OpponentName { get; }
+        public abstract string Opponent1Name { get; }
+        [Ignored]
+        public abstract string Opponent2Name { get; }
+        [Ignored]
+        public abstract string Opponent3Name { get; }
         public abstract void SetDocument(Action<System.Threading.Tasks.Task> OnComplete);
+
     }
 }

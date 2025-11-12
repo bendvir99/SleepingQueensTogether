@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace SleepingQueensTogether.Models
 {
-    class GamesModel
+    public class GamesModel
     {
         protected FbData fbd = new();
         protected IListenerRegistration? ilr;
@@ -18,5 +18,6 @@ namespace SleepingQueensTogether.Models
 
         public EventHandler<Game>? OnGameAdded;
         public EventHandler? OnGamesChanged;
+
     }
 }
