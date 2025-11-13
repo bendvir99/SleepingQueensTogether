@@ -12,15 +12,12 @@ namespace SleepingQueensTogether.ModelsLogic
     {
         public override string OpponentName => IsHost ? GuestName : HostName;
 
-        internal Game(GameSize selectedGameSize)
-        {
-            HostName = fbd.DisplayName;
-            PlayerCount = selectedGameSize.Size;
-            Created = DateTime.Now;
-        }
         internal Game()
         {
+            HostName = fbd.DisplayName;
+            Created = DateTime.Now;
         }
+
         public override void SetDocument(Action<System.Threading.Tasks.Task> OnComplete)
         {
             Id = fbd.SetDocument(this, Keys.GamesCollection, Id, OnComplete);

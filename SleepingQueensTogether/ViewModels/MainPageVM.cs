@@ -16,8 +16,6 @@ namespace SleepingQueensTogether.ViewModels
     {
         private readonly Games games = new();
         public bool IsBusy => games.IsBusy;
-        public ObservableCollection<GameSize>? GameSizes { get => games.GameSizes; set => games.GameSizes = value; }
-        public GameSize SelectedGameSize { get => games.SelectedGameSize; set => games.SelectedGameSize = value; }
         public ICommand AddGameCommand => new Command(AddGame);
         public Game? SelectedItem
         {

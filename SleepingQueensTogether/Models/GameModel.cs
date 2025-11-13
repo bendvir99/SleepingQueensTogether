@@ -16,10 +16,7 @@ namespace SleepingQueensTogether.Models
         public string HostName { get; set; } = string.Empty;
         public string GuestName { get; set; } = string.Empty;
         public DateTime Created { get; set; }
-        public int PlayerCount { get; set; }
         public bool IsFull { get; set; }
-        [Ignored]
-        public string PlayerCountName => $"{PlayerCount} Players";
         [Ignored]
         public string MyName { get; set; } = fbd.DisplayName;
         [Ignored]
