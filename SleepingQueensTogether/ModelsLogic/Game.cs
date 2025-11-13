@@ -1,5 +1,4 @@
 ﻿using Microsoft.Maui.Controls;
-using Plugin.CloudFirestore;
 using SleepingQueensTogether.Models;
 using System;
 using System.Collections.Generic;
@@ -11,44 +10,11 @@ namespace SleepingQueensTogether.ModelsLogic
 {
     public class Game : GameModel
     {
-        public override string Opponent1Name
-        {
-            get
-            {
-                if (fbd.DisplayName == Player1Number) return Player2Number;
-                return Player1Number;
-            }
+        public override string OpponentName => IsHost ? GuestName : HostName;
 
-        }
-        public override string Opponent2Name
-        {
-            get
-            {
-                if (Opponent1Name == Player1Number)
-                {
-                    if (fbd.DisplayName == Player2Number) return Player3Number;
-                    return Player2Number;
-                }
-                return Player3Number;
-            }
-
-        }
-        public override string Opponent3Name
-        {
-            get
-            {
-                if (Opponent2Name == Player2Number)
-                {
-                    if (fbd.DisplayName == Player3Number) return Player4Number;
-                    return Player3Number;
-                }
-                return Player4Number;
-            }
-
-        }
         internal Game(GameSize selectedGameSize)
         {
-            Player1Number = fbd.DisplayName;
+            HostName = fbd.DisplayName;
             PlayerCount = selectedGameSize.Size;
             Created = DateTime.Now;
         }

@@ -72,6 +72,5 @@ namespace SleepingQueensTogether.ModelsLogic
             IQuerySnapshot qs = await cr.WhereEqualsTo(fName, fValue).GetAsync();
             OnComplete(qs);
         }
-
     }
 }
