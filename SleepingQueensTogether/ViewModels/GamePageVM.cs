@@ -9,20 +9,24 @@ using System.Threading.Tasks;
 
 namespace SleepingQueensTogether.ViewModels
 {
-    class GamePageVM : ObservableObject
+    public partial class GamePageVM : ObservableObject
     {
         private readonly Game game;
         public string MyName => game.MyName;
         public string OpponentName => game.OpponentName;
         public GamePageVM(Game game)
         {
+            game.OnGameChanged += OnGameChanged;
             this.game = game;
-            if (!game.IsHost)
+            if (!game.IsHostUser)
             {
-                game.GuestName = MyName;
-                game.IsFull = true;
-                game.SetDocument(OnComplete);
+                game.UpdateGuestUser(OnComplete);
             }
+        }
+
+        private void OnGameChanged(object? sender, EventArgs e)
+        {
+            OnPropertyChanged(nameof(OpponentName));
         }
 
         private void OnComplete(Task task)
@@ -31,5 +35,15 @@ namespace SleepingQueensTogether.ViewModels
                 Toast.Make(Strings.JoinGameErr, CommunityToolkit.Maui.Core.ToastDuration.Long, 14);
 
         }
+        public void AddSnapshotListener()
+        {
+            game.AddSnapshotListener();
+        }
+
+        public void RemoveSnapshotListener()
+        {
+            game.RemoveSnapshotListener();
+        }
     }
 }
+

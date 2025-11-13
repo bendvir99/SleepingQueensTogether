@@ -38,6 +38,8 @@ namespace SleepingQueensTogether.Models
         public const string SelectPlayerCount = "Select Player Count";
         public const string AddGame = "Add Game";
         public const string JoinGameErr = "Error joining game";
+        public const string GameDeleted = "Deleted";
+
 
     }
 }

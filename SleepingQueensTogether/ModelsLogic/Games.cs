@@ -1,4 +1,5 @@
-﻿using Plugin.CloudFirestore;
+﻿using CommunityToolkit.Maui.Alerts;
+using Plugin.CloudFirestore;
 using SleepingQueensTogether.Models;
 
 namespace SleepingQueensTogether.ModelsLogic
@@ -10,9 +11,17 @@ namespace SleepingQueensTogether.ModelsLogic
             IsBusy = true;
             currentGame = new()
             {
-                IsHost = true
+                IsHostUser = true
             };
+            currentGame.OnGameDeleted += OnGameDeleted;
             currentGame.SetDocument(OnComplete);
+        }
+        private void OnGameDeleted(object? sender, EventArgs e)
+        {
+            MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                Toast.Make(Strings.GameDeleted, CommunityToolkit.Maui.Core.ToastDuration.Long, 14).Show();
+            });
         }
         private void OnComplete(Task task)
         {
@@ -23,11 +32,11 @@ namespace SleepingQueensTogether.ModelsLogic
         {
 
         }
-        public void AddSnapshotListener()
+        public override void AddSnapshotListener()
         {
             ilr = fbd.AddSnapshotListener(Keys.GamesCollection, OnChange!);
         }
-        public void RemoveSnapshotListener()
+        public override void RemoveSnapshotListener()
         {
             ilr?.Remove();
         }

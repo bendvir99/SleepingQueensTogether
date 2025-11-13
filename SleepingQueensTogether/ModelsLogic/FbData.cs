@@ -5,7 +5,7 @@ using SleepingQueensTogether.Models;
 
 namespace SleepingQueensTogether.ModelsLogic
 {
-    public class FbData : FbDataModel
+    public partial class FbData : FbDataModel
     {
         public override async void CreateUserWithEmailAndPasswordAsync(string email, string password, string name, Action<System.Threading.Tasks.Task> OnComplete)
         {
@@ -71,6 +71,17 @@ namespace SleepingQueensTogether.ModelsLogic
             ICollectionReference cr = fdb.Collection(collectonName);
             IQuerySnapshot qs = await cr.WhereEqualsTo(fName, fValue).GetAsync();
             OnComplete(qs);
+        }
+        public override async void UpdateFields(string collectonName, string id, Dictionary<string, object> dict, Action<Task> OnComplete)
+        {
+            IDocumentReference dr = fdb.Collection(collectonName).Document(id);
+            await dr.UpdateAsync(dict).ContinueWith(OnComplete);
+        }
+
+        public override async void DeleteDocument(string collectonName, string id, Action<Task> OnComplete)
+        {
+            IDocumentReference dr = fdb.Collection(collectonName).Document(id);
+            await dr.DeleteAsync().ContinueWith(OnComplete);
         }
     }
 }
