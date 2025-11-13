@@ -32,14 +32,14 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="m:GameModel">
                     <ViewCell>
-                        <Grid ColumnDefinitions="*,2*,0.5*">
+                        <Grid ColumnDefinitions="*,1.5*,*">
                             <Label
                                 Grid.Column="0"
                                 Margin="20,0,0,0"
                                 FontAttributes="Bold"
                                 FontSize="15"
                                 HorizontalTextAlignment="Start"
-                                Text="{Binding HostName}"
+                                Text="{Binding Player1Number}"
                                 VerticalOptions="Center" />
                             <Label
                                 Grid.Column="1"

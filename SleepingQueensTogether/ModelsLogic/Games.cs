@@ -8,8 +8,10 @@ namespace SleepingQueensTogether.ModelsLogic
         internal void AddGame()
         {
             IsBusy = true;
-            currentGame = new(SelectedGameSize);
-            currentGame.IsHost = true;
+            currentGame = new(SelectedGameSize)
+            {
+                IsHostUser = true
+            };
             currentGame.SetDocument(OnComplete);
         }
         private void OnComplete(Task task)

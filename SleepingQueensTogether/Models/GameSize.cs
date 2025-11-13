@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace SleepingQueensTogether.Models
 {
-    class GameSize
+    public class GameSize
     {
         public int Size { get; set; }
+
         public string DisplayName => $"{Size} Players";
         public GameSize(int size)
         {

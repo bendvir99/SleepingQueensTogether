@@ -9,22 +9,46 @@ using System.Threading.Tasks;
 
 namespace SleepingQueensTogether.ViewModels
 {
-    class GamePageVM : ObservableObject
+    internal class GamePageVM : ObservableObject
     {
         private readonly Game game;
         public string MyName => game.MyName;
-        public string OpponentName => game.OpponentName;
+        public string Player2Number => game.Player2Number;
+        public string Player3Number => game.Player2Number;
+        public string Player4Number => game.Player2Number;
+        public string OpponentName1 => game.Opponent1Name;
+        public string OpponentName2 => game.Opponent2Name;
+        public string OpponentName3 => game.Opponent3Name;
         public GamePageVM(Game game)
         {
             this.game = game;
-            if (!game.IsHost)
+            if (!game.IsHostUser)
             {
-                game.GuestName = MyName;
-                game.IsFull = true;
-                game.SetDocument(OnComplete);
+                if (game.PlayerAmount == 1)
+                {
+                    game.Player2Number = MyName;
+                    game.PlayerAmount = 2;
+                    game.SetDocument(OnComplete);
+                }
+                else if (game.PlayerAmount == 2)
+                {
+                    game.Player3Number = MyName;
+                    game.PlayerAmount = 3;
+                    game.SetDocument(OnComplete);
+                }
+                else if (game.PlayerAmount == 3)
+                {
+                    game.Player4Number = MyName;
+                    game.PlayerAmount = 4;
+                    game.SetDocument(OnComplete);
+                }
+                if (game.PlayerCount == game.PlayerAmount)
+                {
+                    game.IsFull = true;
+                    game.SetDocument(OnComplete);
+                }
             }
         }
-
         private void OnComplete(Task task)
         {
             if (!task.IsCompletedSuccessfully)
