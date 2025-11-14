@@ -17,6 +17,15 @@ namespace SleepingQueensTogether.ViewModels
         private readonly Games games = new();
         public bool IsBusy => games.IsBusy;
         public ICommand AddGameCommand => new Command(AddGame);
+
+        private void AddGame()
+        {
+            if (!IsBusy)
+            {
+                games.AddGame();
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
         public Game? SelectedItem
         {
             get => games.CurrentGame;
@@ -34,11 +43,6 @@ namespace SleepingQueensTogether.ViewModels
             }
         }
 
-        private void AddGame()
-        {
-            games.AddGame();
-            OnPropertyChanged(nameof(IsBusy));
-        }
         public ObservableCollection<Game>? GamesList => games.GamesList;
         public MainPageVM()
         {

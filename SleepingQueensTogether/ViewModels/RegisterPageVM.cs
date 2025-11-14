@@ -11,11 +11,10 @@ namespace SleepingQueensTogether.ViewModels
     {
         private readonly User user = new();
         public ICommand RegisterCommand { get; }
-        public ICommand RegisterGoogleCommand { get; }
+        //public ICommand RegisterGoogleCommand { get; }
         public ICommand ToggleIsPasswordCommand { get; }
         public bool IsBusy => user.IsBusy;
         public bool IsPassword { get; set; } = true;
-        public bool IsEnabled { get; set; } = true;
         public bool IsRegistered => user.IsRegistered;
         public string Name
         { 
@@ -61,15 +60,13 @@ namespace SleepingQueensTogether.ViewModels
         public RegisterPageVM()
         {
             RegisterCommand = new Command(Register, CanRegister);
-            RegisterGoogleCommand = new Command(RegisterGoogle);
+            //RegisterGoogleCommand = new Command(RegisterGoogle);
             ToggleIsPasswordCommand = new Command(ToggleIsPassword);
             user.OnAuthenticationComplete += OnAuthComplete;
         }
 
         private void OnAuthComplete(object? sender, bool success)
         {
-            IsEnabled = true;
-            OnPropertyChanged(nameof(IsBusy));
             OnPropertyChanged(nameof(IsBusy));
             if (success && Application.Current != null)
             {
@@ -77,6 +74,14 @@ namespace SleepingQueensTogether.ViewModels
                 {
                     Application.Current.MainPage = new AppShell();
                 });
+            }
+            else
+            {
+                MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    (RegisterCommand as Command)?.ChangeCanExecute();
+                });
+                OnPropertyChanged(nameof(IsBusy));
             }
         }
 
@@ -87,16 +92,18 @@ namespace SleepingQueensTogether.ViewModels
 
         private void Register()
         {
-            user.Register();
-            IsEnabled = false;
-            OnPropertyChanged(nameof(IsBusy));
-            OnPropertyChanged(nameof(IsEnabled));
+            if (!IsBusy)
+            {
+                user.Register();
+                OnPropertyChanged(nameof(IsBusy));
+                (RegisterCommand as Command)?.ChangeCanExecute();
+            }
 
         }
-        private void RegisterGoogle()
-        {
-            user.RegisterGoogle();
-            OnPropertyChanged(nameof(IsBusy));
-        }
+        //private void RegisterGoogle()
+        //{
+        //    user.RegisterGoogle();
+        //    OnPropertyChanged(nameof(IsBusy));
+        //}
     }
 }

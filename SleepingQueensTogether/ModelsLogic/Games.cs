@@ -20,7 +20,7 @@ namespace SleepingQueensTogether.ModelsLogic
         {
             MainThread.InvokeOnMainThreadAsync(() =>
             {
-                Toast.Make(Strings.GameDeleted, CommunityToolkit.Maui.Core.ToastDuration.Long, 14).Show();
+                Toast.Make(Strings.GameCanceled, CommunityToolkit.Maui.Core.ToastDuration.Long, 14).Show();
             });
         }
         private void OnComplete(Task task)
@@ -48,6 +48,11 @@ namespace SleepingQueensTogether.ModelsLogic
         private void OnComplete(IQuerySnapshot qs)
         {
             GamesList!.Clear();
+            //if(qs.Documents.Count() >0)
+            //{
+            //    IDocumentSnapshot ds = qs.Documents.FirstOrDefault()!;
+            //    Game? game = ds.ToObject<Game>();
+            //}
             foreach (IDocumentSnapshot ds in qs.Documents)
             {
                 Game? game = ds.ToObject<Game>();

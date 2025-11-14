@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+﻿using CommunityToolkit.Maui.Alerts;
+using Microsoft.Maui.Controls;
 using Plugin.CloudFirestore;
 using SleepingQueensTogether.Models;
 using System;
@@ -65,6 +66,15 @@ namespace SleepingQueensTogether.ModelsLogic
                 IsFull = updatedGame.IsFull;
                 GuestName = updatedGame.GuestName;
                 OnGameChanged?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    Shell.Current.Navigation.PopAsync();
+                    Toast.Make(Strings.GameCanceled, CommunityToolkit.Maui.Core.ToastDuration.Long, 14).Show();
+                });
+
             }
         }
 

@@ -73,7 +73,6 @@
             Grid.Row="4"
             Grid.ColumnSpan="2"
             Command="{Binding LoginCommand}"
-            IsEnabled="{Binding IsEnabled}"
             Text="{x:Static m:Strings.LoginButtonText}" />
         <Label
             Grid.Row="5"

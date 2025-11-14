@@ -12,7 +12,6 @@ namespace SleepingQueensTogether.ViewModels
         public bool IsBusy => user.IsBusy;
         public bool IsPassword { get; set; } = true;
         public bool IsRegistered => user.IsRegistered;
-        public bool IsEnabled { get; set; } = true;
         public bool RememberMe
         {
             get => user.RememberMe;
@@ -65,15 +64,20 @@ namespace SleepingQueensTogether.ViewModels
 
         private void OnAuthComplete(object? sender, bool success)
         {
-            IsEnabled = true;
-            OnPropertyChanged(nameof(IsBusy));
-            OnPropertyChanged(nameof(IsEnabled));
             if (success && Application.Current != null)
             {
                 MainThread.InvokeOnMainThreadAsync(() =>
                 {
                     Application.Current.MainPage = new AppShell();
                 });
+            }
+            else
+            {
+                MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    (LoginCommand as Command)?.ChangeCanExecute();
+                });
+                OnPropertyChanged(nameof(IsBusy));
             }
         }
 
@@ -84,10 +88,12 @@ namespace SleepingQueensTogether.ViewModels
 
         private void Login()
         {
-            user.Login();
-            IsEnabled = false;
-            OnPropertyChanged(nameof(IsBusy));
-            OnPropertyChanged(nameof(IsEnabled));
+            if (!IsBusy)
+            {
+                user.Login();
+                OnPropertyChanged(nameof(IsBusy));
+                (LoginCommand as Command)?.ChangeCanExecute();
+            }
         }
     }
 }

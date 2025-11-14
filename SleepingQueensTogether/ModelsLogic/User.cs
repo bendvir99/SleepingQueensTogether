@@ -81,11 +81,11 @@ namespace SleepingQueensTogether.ModelsLogic
         }
         public override bool IsValidRegister()
         {
-            return !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email);
+            return !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email) && !IsBusy;
         }
         public override bool IsValidLogin()
         {
-            return !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email);
+            return !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email) && !IsBusy;
         }
 
         public static void ToastMake(string message)
