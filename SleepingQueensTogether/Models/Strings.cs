@@ -39,6 +39,8 @@ namespace SleepingQueensTogether.Models
         public const string AddGame = "Add Game";
         public const string JoinGameErr = "Error joining game";
         public const string GameCanceled = "Game Canceled";
+        public const string WaitMessage = "Please wait";
+        public const string PlayMessage = "Play please";
 
 
     }

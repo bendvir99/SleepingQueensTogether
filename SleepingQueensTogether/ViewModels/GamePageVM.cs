@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SleepingQueensTogether.ViewModels
 {
@@ -13,20 +14,35 @@ namespace SleepingQueensTogether.ViewModels
     {
         private readonly Game game;
         public string MyName => game.MyName;
+        public string StatusMessage => game.StatusMessage;
         public string OpponentName => game.OpponentName;
+        public ICommand ChangeTurnCommand { get; }
         public GamePageVM(Game game)
         {
             game.OnGameChanged += OnGameChanged;
+            ChangeTurnCommand = new Command(ChangeTurn);
             this.game = game;
             if (!game.IsHostUser)
             {
                 game.UpdateGuestUser(OnComplete);
             }
         }
+        private void ChangeTurn()
+        {
+            game.IsHostTurn = !game.IsHostTurn;
+            Dictionary<string, object> dict = new()
+            {
+                { nameof(game.IsHostTurn), game.IsHostTurn }
+            };
+            FbData fbd = new();
+            fbd.UpdateFields(Keys.GamesCollection, game.Id, dict, OnComplete);
+            OnPropertyChanged(nameof(StatusMessage));
+        }
 
         private void OnGameChanged(object? sender, EventArgs e)
         {
             OnPropertyChanged(nameof(OpponentName));
+            OnPropertyChanged(nameof(StatusMessage));
         }
 
         private void OnComplete(Task task)

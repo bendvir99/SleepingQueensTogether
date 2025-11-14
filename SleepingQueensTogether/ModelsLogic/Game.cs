@@ -1,18 +1,15 @@
 ﻿using CommunityToolkit.Maui.Alerts;
-using Microsoft.Maui.Controls;
 using Plugin.CloudFirestore;
 using SleepingQueensTogether.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SleepingQueensTogether.ModelsLogic
 {
     public class Game : GameModel
     {
         public override string OpponentName => IsHostUser ? GuestName : HostName;
+        protected override GameStatus Status => IsHostUser && IsHostTurn || !IsHostUser && !IsHostTurn ?
+           new GameStatus { CurrentStatus = GameStatus.Status.Play } :
+           new GameStatus { CurrentStatus = GameStatus.Status.Wait };
 
         internal Game()
         {
@@ -65,6 +62,7 @@ namespace SleepingQueensTogether.ModelsLogic
             {
                 IsFull = updatedGame.IsFull;
                 GuestName = updatedGame.GuestName;
+                IsHostTurn = updatedGame.IsHostTurn;
                 OnGameChanged?.Invoke(this, EventArgs.Empty);
             }
             else

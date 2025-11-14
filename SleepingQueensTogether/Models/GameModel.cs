@@ -13,6 +13,9 @@ namespace SleepingQueensTogether.Models
     {
         protected static FbData fbd = new();
         protected IListenerRegistration? ilr;
+        protected abstract GameStatus Status { get; }
+        [Ignored]
+        public string StatusMessage => Status.StatusMessage;
         [Ignored]
         public EventHandler? OnGameChanged;
         [Ignored]
@@ -23,6 +26,7 @@ namespace SleepingQueensTogether.Models
         public string GuestName { get; set; } = string.Empty;
         public DateTime Created { get; set; }
         public bool IsFull { get; set; }
+        public bool IsHostTurn { get; set; } = false;
         [Ignored]
         public string MyName { get; set; } = fbd.DisplayName;
         [Ignored]
