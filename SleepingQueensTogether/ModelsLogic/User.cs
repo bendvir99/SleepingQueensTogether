@@ -19,6 +19,12 @@ namespace SleepingQueensTogether.ModelsLogic
             
             fbd.SignInWithEmailAndPasswordAsync(Email, Password, OnCompleteLogin);
         }
+        public void ResetPassword(string email)
+        {
+            IsBusy = true;
+
+            fbd.ResetPasswordWithEmail(email, OnCompleteResetPassword);
+        }
         public override void RegisterGoogle()
         {
             //fbd.SignInWithGoogleAsync(OnComplete);
@@ -69,6 +75,19 @@ namespace SleepingQueensTogether.ModelsLogic
                 Email = string.Empty;
                 Password = string.Empty;
 
+            }
+        }
+        private void OnCompleteResetPassword(Task task)
+        {
+            IsBusy = false;
+            if (!task.IsCompletedSuccessfully)
+            {
+                if (task.Exception != null)
+                {
+                    Exception ex = task.Exception.InnerException ?? task.Exception;
+                    Console.WriteLine(ex);
+                }
+                ToastMake(Strings.ResetPasswordFailed);
             }
         }
 

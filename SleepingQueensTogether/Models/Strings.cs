@@ -26,6 +26,8 @@ namespace SleepingQueensTogether.Models
         public const string InvalidEmail = "InvalidEmailAddress";
         public const string RegisterFailed = "Register Failed";
         public const string LoginFailed = "Login Failed";
+        public const string ResetPasswordFailed = "Reset Failed";
+        public const string ResetPasswordButton = "Reset Password";
         public const string LoginFailedError = "Incorrect Email or Password";
         public const string RegisterFailedInvalidEmail = "Invalid Email Address";
         public const string RegisterUnknownError = "Unknown Error";
@@ -41,7 +43,8 @@ namespace SleepingQueensTogether.Models
         public const string GameCanceled = "Game Canceled";
         public const string WaitMessage = "Please wait";
         public const string PlayMessage = "Play please";
-
+        public const string ResetPasswordTitle = "Reset Your Password";
+        public const string ReturnToLogin = "Return to Login";
 
     }
 }

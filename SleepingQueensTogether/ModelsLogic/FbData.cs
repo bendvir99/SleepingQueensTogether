@@ -15,6 +15,10 @@ namespace SleepingQueensTogether.ModelsLogic
         {
             await facl.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(OnComplete);
         }
+        public override async void ResetPasswordWithEmail(string email, Action<System.Threading.Tasks.Task> OnComplete)
+        {
+            await facl.ResetEmailPasswordAsync(email).ContinueWith(OnComplete);
+        }
         //public override async void SignInWithGoogleAsync(Action<System.Threading.Tasks.Task> OnComplete)
         //{
         //    GoogleAuthService google = new GoogleAuthService();

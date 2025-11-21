@@ -1,5 +1,6 @@
 ﻿using SleepingQueensTogether.Models;
 using SleepingQueensTogether.ModelsLogic;
+using SleepingQueensTogether.Views;
 using System.Windows.Input;
 
 namespace SleepingQueensTogether.ViewModels
@@ -8,6 +9,7 @@ namespace SleepingQueensTogether.ViewModels
     {
         private readonly User user = new();
         public ICommand LoginCommand { get; }
+        public ICommand NavigateToResetPasswordCommand { get; }
         public ICommand ToggleIsPasswordCommand { get; }
         public bool IsBusy => user.IsBusy;
         public bool IsPassword { get; set; } = true;
@@ -54,11 +56,23 @@ namespace SleepingQueensTogether.ViewModels
         {
             LoginCommand = new Command(Login, CanLogin);
             ToggleIsPasswordCommand = new Command(ToggleIsPassword);
+            NavigateToResetPasswordCommand = new Command(NavigateToResetPassword);
             user.OnAuthenticationComplete += OnAuthComplete;
             if (Preferences.Get(Keys.RememberMeKey, false))
             {
                 Password = Preferences.Get(Keys.PasswordKey, string.Empty);
                 Email = Preferences.Get(Keys.GmailKey, string.Empty);
+            }
+        }
+
+        private void NavigateToResetPassword()
+        {
+            if (Application.Current != null)
+            {
+                MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    Application.Current.MainPage = new PasswordResetPage();
+                });
             }
         }
 
