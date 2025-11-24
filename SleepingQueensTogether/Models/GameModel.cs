@@ -14,6 +14,7 @@ namespace SleepingQueensTogether.Models
         protected static FbData fbd = new();
         protected IListenerRegistration? ilr;
         protected abstract GameStatus Status { get; }
+        protected GameStatus _status = new();
         [Ignored]
         public string StatusMessage => Status.StatusMessage;
         [Ignored]
@@ -37,6 +38,7 @@ namespace SleepingQueensTogether.Models
         public abstract void RemoveSnapshotListener();
         public abstract void AddSnapshotListener();
         public abstract void DeleteDocument(Action<System.Threading.Tasks.Task> OnComplete);
+        protected abstract void UpdateStatus();
 
     }
 }

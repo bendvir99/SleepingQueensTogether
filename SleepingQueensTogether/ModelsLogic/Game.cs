@@ -7,14 +7,19 @@ namespace SleepingQueensTogether.ModelsLogic
     public class Game : GameModel
     {
         public override string OpponentName => IsHostUser ? GuestName : HostName;
-        protected override GameStatus Status => IsHostUser && IsHostTurn || !IsHostUser && !IsHostTurn ?
-           new GameStatus { CurrentStatus = GameStatus.Status.Play } :
-           new GameStatus { CurrentStatus = GameStatus.Status.Wait };
+        protected override GameStatus Status => _status;
 
         internal Game()
         {
             HostName = fbd.DisplayName;
             Created = DateTime.Now;
+            IsHostUser = true;
+            UpdateStatus();
+        }
+        protected override void UpdateStatus()
+        {
+            _status.CurrentStatus = IsHostUser && IsHostTurn || !IsHostUser && !IsHostTurn ?
+                GameStatus.Statuses.Play : GameStatus.Statuses.Wait;
         }
 
         public override void SetDocument(Action<System.Threading.Tasks.Task> OnComplete)
