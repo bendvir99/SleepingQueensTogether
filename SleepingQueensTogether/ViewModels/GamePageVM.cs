@@ -16,6 +16,7 @@ namespace SleepingQueensTogether.ViewModels
         public string MyName => game.MyName;
         public string StatusMessage => game.StatusMessage;
         public string OpponentName => game.OpponentName;
+        public string Total => $"{Strings.TotalQueens}\n{Strings.TotalPoints}";
         public ICommand ChangeTurnCommand { get; }
         public GamePageVM(Game game)
         {

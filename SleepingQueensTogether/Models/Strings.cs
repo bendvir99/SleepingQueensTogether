@@ -45,6 +45,7 @@ namespace SleepingQueensTogether.Models
         public const string PlayMessage = "Play please";
         public const string ResetPasswordTitle = "Reset Your Password";
         public const string ReturnToLogin = "Return to Login";
-
+        public const string TotalQueens = "Total Queens: 0";
+        public const string TotalPoints = "Total Points: 0";
     }
 }

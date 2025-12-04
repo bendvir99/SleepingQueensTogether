@@ -3,6 +3,31 @@
     x:Class="SleepingQueensTogether.Views.GamePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:SleepingQueensTogether.Models"
     xmlns:vm="clr-namespace:SleepingQueensTogether.ViewModels"
     Title="GamePage"
-    x:DataType="vm:GamePageVM" />
+    x:DataType="vm:GamePageVM">
+    <Grid>
+        <Image Source="sleepingqueens.jpg" Aspect="AspectFill"/>
+        <Grid ColumnDefinitions="*" RowDefinitions="0.4*, *, 0.6*">
+            <Grid ColumnDefinitions="2.1*,*,*,*,*,*" RowDefinitions="*, *">
+                <Label
+            FontSize="13"
+            HorizontalOptions="Start"
+            Text="{Binding Total}" Grid.RowSpan="2"/>
+                <Label FontSize="20" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding OpponentName}" HeightRequest="30"/>
+            </Grid>
+            <Grid Grid.Row="1" ColumnDefinitions="*,*,*,*,*,*" RowDefinitions="*,*,*">
+
+            </Grid>
+            <Grid Grid.Row="2" ColumnDefinitions="*, *, *, *, *" RowDefinitions="*, *">
+                <Image Source="orangecard.png" Aspect="AspectFit" HeightRequest="70"/>
+                <Image Grid.Column="1" Source="orangecard.png" Aspect="AspectFit" HeightRequest="70" />
+                <Image Grid.Column="2" Source="orangecard.png" Aspect="AspectFit" HeightRequest="70"/>
+                <Image Grid.Column="3" Source="orangecard.png" Aspect="AspectFit" HeightRequest="70"/>
+                <Image Grid.Column="4" Source="orangecard.png" Aspect="AspectFit" HeightRequest="70"/>
+                <Label VerticalOptions="Start" Grid.ColumnSpan="5" Grid.Row="1" FontSize="20" Text="{Binding MyName}" HeightRequest="30"></Label>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

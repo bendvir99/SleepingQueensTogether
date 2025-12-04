@@ -13,7 +13,6 @@ namespace SleepingQueensTogether.ModelsLogic
         {
             HostName = fbd.DisplayName;
             Created = DateTime.Now;
-            IsHostUser = true;
             UpdateStatus();
         }
         protected override void UpdateStatus()
