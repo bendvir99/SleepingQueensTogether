@@ -8,25 +8,93 @@
     Title="GamePage"
     x:DataType="vm:GamePageVM">
     <Grid>
-        <Image Source="sleepingqueens.jpg" Aspect="AspectFill"/>
+        <Image Aspect="AspectFill" Source="sleepingqueens.jpg"/>
         <Grid ColumnDefinitions="*" RowDefinitions="0.4*, *, 0.6*">
-            <Grid ColumnDefinitions="2.1*,*,*,*,*,*" RowDefinitions="*, *">
+            <Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*" RowDefinitions="*, *">
                 <Label
-            FontSize="13"
-            HorizontalOptions="Start"
-            Text="{Binding Total}" Grid.RowSpan="2"/>
-                <Label FontSize="20" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding OpponentName}" HeightRequest="30"/>
+                    Grid.RowSpan="2"
+                    Grid.ColumnSpan="3"
+                    FontSize="13"
+                    HorizontalOptions="Start"
+                    Text="{Binding Total}" />
+                <Label
+                    Grid.Column="1"
+                    Grid.ColumnSpan="6"
+                    Margin="30,0,0,0"
+                    FontSize="20"
+                    HeightRequest="30"
+                    Text="{Binding OpponentName}" />
+                <Image
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Aspect="AspectFit"
+                    HeightRequest="70"
+                    Source="orangecard.png" />
+                <Image
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Aspect="AspectFit"
+                    HeightRequest="70"
+                    Source="orangecard.png" />
+                <Image
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    Aspect="AspectFit"
+                    HeightRequest="70"
+                    Source="orangecard.png" />
+                <Image
+                    Grid.Row="1"
+                    Grid.Column="5"
+                    Aspect="AspectFit"
+                    HeightRequest="70"
+                    Source="orangecard.png" />
+                <Image
+                    Grid.Row="1"
+                    Grid.Column="6"
+                    Aspect="AspectFit"
+                    HeightRequest="70"
+                    Source="orangecard.png" />
             </Grid>
-            <Grid Grid.Row="1" ColumnDefinitions="*,*,*,*,*,*" RowDefinitions="*,*,*">
-
-            </Grid>
-            <Grid Grid.Row="2" ColumnDefinitions="*, *, *, *, *" RowDefinitions="*, *">
-                <Image Source="orangecard.png" Aspect="AspectFit" HeightRequest="70"/>
-                <Image Grid.Column="1" Source="orangecard.png" Aspect="AspectFit" HeightRequest="70" />
-                <Image Grid.Column="2" Source="orangecard.png" Aspect="AspectFit" HeightRequest="70"/>
-                <Image Grid.Column="3" Source="orangecard.png" Aspect="AspectFit" HeightRequest="70"/>
-                <Image Grid.Column="4" Source="orangecard.png" Aspect="AspectFit" HeightRequest="70"/>
-                <Label VerticalOptions="Start" Grid.ColumnSpan="5" Grid.Row="1" FontSize="20" Text="{Binding MyName}" HeightRequest="30"></Label>
+            <Grid
+                Grid.Row="1"
+                ColumnDefinitions="*,*,*,*,*,*"
+                RowDefinitions="*,*,*" />
+            <Grid
+                Grid.Row="2"
+                ColumnDefinitions="*, *, *, *, *, *, *, *, *"
+                RowDefinitions="*, *">
+                <Image
+                    Grid.Column="2"
+                    Aspect="AspectFit"
+                    HeightRequest="70"
+                    Source="{Binding Card1Image}" />
+                <Image
+                    Grid.Column="3"
+                    Aspect="AspectFit"
+                    HeightRequest="70"
+                    Source="{Binding Card2Image}" />
+                <Image
+                    Grid.Column="4"
+                    Aspect="AspectFit"
+                    HeightRequest="70"
+                    Source="{Binding Card3Image}" />
+                <Image
+                    Grid.Column="5"
+                    Aspect="AspectFit"
+                    HeightRequest="70"
+                    Source="{Binding Card4Image}" />
+                <Image
+                    Grid.Column="6"
+                    Aspect="AspectFit"
+                    HeightRequest="70"
+                    Source="{Binding Card5Image}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.ColumnSpan="9"
+                    FontSize="20"
+                    HeightRequest="30"
+                    Text="{Binding MyName}"
+                    VerticalOptions="Start" />
             </Grid>
         </Grid>
     </Grid>
