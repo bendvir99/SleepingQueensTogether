@@ -63,7 +63,7 @@ namespace SleepingQueensTogether.ViewModels
         {
             OnPropertyChanged(nameof(OpponentName));
             OnPropertyChanged(nameof(StatusMessage));
-            if (game.DeckCards.Count == 5)
+            if (game.DeckCards.Count == 47 && game.IsHostUser)
             {
                 game.InitializeCards();
                 OnPropertyChanged(nameof(Card1Image));
