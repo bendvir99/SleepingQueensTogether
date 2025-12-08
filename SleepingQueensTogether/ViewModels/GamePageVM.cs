@@ -22,17 +22,31 @@ namespace SleepingQueensTogether.ViewModels
         public string Card3Image => game.Card3.Image;
         public string Card4Image => game.Card4.Image;
         public string Card5Image => game.Card5.Image;
+        public bool IsGuest => !game.IsHostUser;
         public ICommand ChangeTurnCommand { get; }
+        public ICommand StartGameCommand { get; }
         public GamePageVM(Game game)
         {
             game.OnGameChanged += OnGameChanged;
             ChangeTurnCommand = new Command(ChangeTurn);
+            StartGameCommand = new Command(StartGame);
             this.game = game;
             if (!game.IsHostUser)
             {
                 game.UpdateGuestUser(OnComplete);
             }
         }
+
+        private void StartGame()
+        {
+            game.InitializeCards();
+            OnPropertyChanged(nameof(Card1Image));
+            OnPropertyChanged(nameof(Card2Image));
+            OnPropertyChanged(nameof(Card3Image));
+            OnPropertyChanged(nameof(Card4Image));
+            OnPropertyChanged(nameof(Card5Image));
+        }
+
         private void ChangeTurn()
         {
             game.IsHostTurn = !game.IsHostTurn;
@@ -49,6 +63,15 @@ namespace SleepingQueensTogether.ViewModels
         {
             OnPropertyChanged(nameof(OpponentName));
             OnPropertyChanged(nameof(StatusMessage));
+            if (game.DeckCards.Count == 5)
+            {
+                game.InitializeCards();
+                OnPropertyChanged(nameof(Card1Image));
+                OnPropertyChanged(nameof(Card2Image));
+                OnPropertyChanged(nameof(Card3Image));
+                OnPropertyChanged(nameof(Card4Image));
+                OnPropertyChanged(nameof(Card5Image));
+            }
         }
 
         private void OnComplete(Task task)

@@ -2,6 +2,7 @@
 using Microsoft.Maui.Animations;
 using Plugin.CloudFirestore;
 using SleepingQueensTogether.Models;
+using System.Collections.ObjectModel;
 
 namespace SleepingQueensTogether.ModelsLogic
 {
@@ -14,7 +15,6 @@ namespace SleepingQueensTogether.ModelsLogic
         {
             HostName = fbd.DisplayName;
             Created = DateTime.Now;
-            InitializeCards();
             UpdateStatus();
         }
         protected override void UpdateStatus()
@@ -25,21 +25,33 @@ namespace SleepingQueensTogether.ModelsLogic
 
         public override void SetDocument(Action<System.Threading.Tasks.Task> OnComplete)
         {
-            Id = fbd.SetDocument(this, Keys.GamesCollection, Id, OnComplete);
+            Id = fbd.SetDocument(this, Keys.GamesCollection, Id, task =>
+            {
+                OnComplete(task);
+            });
         }
-        public void UpdateGuestUser(Action<Task> OnComplete)
+        public override void UpdateGuestUser(Action<Task> OnComplete)
         {
             IsFull = true;
             GuestName = MyName;
             UpdateFbJoinGame(OnComplete);
         }
 
-        private void UpdateFbJoinGame(Action<Task> OnComplete)
+        protected override void UpdateFbJoinGame(Action<Task> OnComplete)
         {
             Dictionary<string, object> dict = new()
             {
                 { nameof(IsFull), IsFull },
                 { nameof(GuestName), GuestName }
+            };
+            fbd.UpdateFields(Keys.GamesCollection, Id, dict, OnComplete);
+        }
+
+        protected override void UpdateFbInGame(Action<Task> OnComplete)
+        {
+            Dictionary<string, object> dict = new()
+            {
+                { nameof(DeckCards), DeckCards }
             };
             fbd.UpdateFields(Keys.GamesCollection, Id, dict, OnComplete);
         }
@@ -55,13 +67,13 @@ namespace SleepingQueensTogether.ModelsLogic
             DeleteDocument(OnComplete);
         }
 
-        private void OnComplete(Task task)
+        protected override void OnComplete(Task task)
         {
             if (task.IsCompletedSuccessfully)
                 OnGameDeleted?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnChange(IDocumentSnapshot? snapshot, Exception? error)
+        protected override void OnChange(IDocumentSnapshot? snapshot, Exception? error)
         {
             Game? updatedGame = snapshot?.ToObject<Game>();
             if (updatedGame != null)
@@ -69,6 +81,7 @@ namespace SleepingQueensTogether.ModelsLogic
                 IsFull = updatedGame.IsFull;
                 GuestName = updatedGame.GuestName;
                 IsHostTurn = updatedGame.IsHostTurn;
+                DeckCards = updatedGame.DeckCards;
                 OnGameChanged?.Invoke(this, EventArgs.Empty);
             }
             else
@@ -81,7 +94,14 @@ namespace SleepingQueensTogether.ModelsLogic
 
             }
         }
-        protected override void InitializeCards()
+        protected override void OnCompleteUpdate(Task task)
+        {
+            if (!task.IsCompletedSuccessfully)
+                Toast.Make(Strings.UpdateErr, CommunityToolkit.Maui.Core.ToastDuration.Long, 14).Show();
+            
+
+        }
+        public override void InitializeCards()
         {
             int number = random.Next(0, DeckCards.Count);
             Card1 = DeckCards[number];
@@ -98,7 +118,7 @@ namespace SleepingQueensTogether.ModelsLogic
             int number5 = random.Next(0, DeckCards.Count);
             Card5 = DeckCards[number5];
             DeckCards.RemoveAt(number5);
-
+            UpdateFbInGame(OnCompleteUpdate);
         }
         public override void DeleteDocument(Action<Task> OnComplete)
         {

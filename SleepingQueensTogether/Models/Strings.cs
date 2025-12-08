@@ -40,6 +40,7 @@ namespace SleepingQueensTogether.Models
         public const string SelectPlayerCount = "Select Player Count";
         public const string AddGame = "Add Game";
         public const string JoinGameErr = "Error joining game";
+        public const string UpdateErr = "Error updating information";
         public const string GameCanceled = "Game Canceled";
         public const string WaitMessage = "Please wait";
         public const string PlayMessage = "Play please";
@@ -47,5 +48,6 @@ namespace SleepingQueensTogether.Models
         public const string ReturnToLogin = "Return to Login";
         public const string TotalQueens = "Total Queens: 0";
         public const string TotalPoints = "Total Points: 0";
+        public const string StartGame = "Start Game";
     }
 }

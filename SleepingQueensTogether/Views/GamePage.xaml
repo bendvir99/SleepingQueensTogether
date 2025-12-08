@@ -8,7 +8,7 @@
     Title="GamePage"
     x:DataType="vm:GamePageVM">
     <Grid>
-        <Image Aspect="AspectFill" Source="sleepingqueens.jpg"/>
+        <Image Aspect="AspectFill" Source="sleepingqueens.jpg" />
         <Grid ColumnDefinitions="*" RowDefinitions="0.4*, *, 0.6*">
             <Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*" RowDefinitions="*, *">
                 <Label
@@ -58,7 +58,16 @@
             <Grid
                 Grid.Row="1"
                 ColumnDefinitions="*,*,*,*,*,*"
-                RowDefinitions="*,*,*" />
+                RowDefinitions="*,*,*">
+                <Button
+                    Grid.Column="3"
+                    Margin="0,30,80,50"
+                    Command="{Binding StartGameCommand}"
+                    FontSize="18"
+                    IsVisible="{Binding IsGuest}"
+                    Text="{x:Static m:Strings.StartGame}"
+                    WidthRequest="140" />
+            </Grid>
             <Grid
                 Grid.Row="2"
                 ColumnDefinitions="*, *, *, *, *, *, *, *, *"

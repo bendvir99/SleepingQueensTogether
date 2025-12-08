@@ -6,7 +6,7 @@ namespace SleepingQueensTogether.ModelsLogic
 {
     class Games : GamesModel
     {
-        internal void AddGame()
+        public override void AddGame()
         {
             IsBusy = true;
             currentGame = new()
@@ -16,14 +16,14 @@ namespace SleepingQueensTogether.ModelsLogic
             currentGame.OnGameDeleted += OnGameDeleted;
             currentGame.SetDocument(OnComplete);
         }
-        private void OnGameDeleted(object? sender, EventArgs e)
+        protected override void OnGameDeleted(object? sender, EventArgs e)
         {
             MainThread.InvokeOnMainThreadAsync(() =>
             {
                 Toast.Make(Strings.GameCanceled, CommunityToolkit.Maui.Core.ToastDuration.Long, 14).Show();
             });
         }
-        private void OnComplete(Task task)
+        protected override void OnComplete(Task task)
         {
             IsBusy = false;
             OnGameAdded?.Invoke(this, currentGame!);
@@ -40,12 +40,12 @@ namespace SleepingQueensTogether.ModelsLogic
         {
             ilr?.Remove();
         }
-        private void OnChange(IQuerySnapshot snapshot, Exception error)
+        protected override void OnChange(IQuerySnapshot snapshot, Exception error)
         {
             fbd.GetDocumentsWhereEqualTo(Keys.GamesCollection, nameof(GameModel.IsFull), false, OnComplete);
         }
 
-        private void OnComplete(IQuerySnapshot qs)
+        protected override void OnComplete(IQuerySnapshot qs)
         {
             GamesList!.Clear();
             //if(qs.Documents.Count() >0)

@@ -13,13 +13,13 @@ namespace SleepingQueensTogether.ModelsLogic
             CurrentAction = Actions.Register;
             fbd.CreateUserWithEmailAndPasswordAsync(Email, Password, Name,OnCompleteRegister);
         }
-        public void Login()
+        public override void Login()
         {
             IsBusy = true;
             
             fbd.SignInWithEmailAndPasswordAsync(Email, Password, OnCompleteLogin);
         }
-        public void ResetPassword(string email)
+        public override void ResetPassword(string email)
         {
             IsBusy = true;
 
@@ -30,13 +30,13 @@ namespace SleepingQueensTogether.ModelsLogic
             //fbd.SignInWithGoogleAsync(OnComplete);
         }
 
-        private void ShowAlert(string message)
+        protected override void ShowAlert(string message)
         {
             message = fbd.GetErrorMessage(message);
-            ToastMake(message);
+            General.ToastMake(message);
         }
 
-        private void OnCompleteRegister(Task task)
+        protected override void OnCompleteRegister(Task task)
         {
             IsBusy = false;
             if (task.IsCompletedSuccessfully)
@@ -59,7 +59,7 @@ namespace SleepingQueensTogether.ModelsLogic
                 Password = string.Empty;
             }
         }
-        private void OnCompleteLogin(Task task)
+        protected override void OnCompleteLogin(Task task)
         {
             IsBusy = false;
             if (task.IsCompletedSuccessfully)
@@ -69,7 +69,7 @@ namespace SleepingQueensTogether.ModelsLogic
             }
             else
             {
-                ToastMake(Strings.LoginFailedError);
+                General.ToastMake(Strings.LoginFailedError);
                 OnAuthenticationComplete?.Invoke(this, false);
                 Name = string.Empty;
                 Email = string.Empty;
@@ -77,7 +77,7 @@ namespace SleepingQueensTogether.ModelsLogic
 
             }
         }
-        private void OnCompleteResetPassword(Task task)
+        protected override void OnCompleteResetPassword(Task task)
         {
             IsBusy = false;
             if (!task.IsCompletedSuccessfully)
@@ -87,11 +87,11 @@ namespace SleepingQueensTogether.ModelsLogic
                     Exception ex = task.Exception.InnerException ?? task.Exception;
                     Console.WriteLine(ex);
                 }
-                ToastMake(Strings.ResetPasswordFailed);
+                General.ToastMake(Strings.ResetPasswordFailed);
             }
         }
 
-        public void SaveToPreferences()
+        public override void SaveToPreferences()
         {
             Preferences.Set(Keys.UsernameKey, Name);
             Preferences.Set(Keys.GmailKey, Email);
@@ -107,12 +107,6 @@ namespace SleepingQueensTogether.ModelsLogic
             return !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(Email) && !IsBusy;
         }
 
-        public static void ToastMake(string message)
-        {
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                Toast.Make(message, ToastDuration.Long).Show();
-            });
-        }
+        
     }
 }

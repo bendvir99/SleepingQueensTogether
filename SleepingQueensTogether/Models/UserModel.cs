@@ -24,5 +24,12 @@ namespace SleepingQueensTogether.Models
         public abstract bool IsValidRegister();
         public abstract bool IsValidLogin();
         public abstract void RegisterGoogle();
+        public abstract void Login();
+        public abstract void ResetPassword(string email);
+        public abstract void SaveToPreferences();
+        protected abstract void ShowAlert(string message);
+        protected abstract void OnCompleteRegister(Task task);
+        protected abstract void OnCompleteLogin(Task task);
+        protected abstract void OnCompleteResetPassword(Task task);
     }
 }

@@ -2,6 +2,7 @@
 using Firebase.Auth.Providers;
 using Plugin.CloudFirestore;
 using SleepingQueensTogether.Models;
+using System.Collections.ObjectModel;
 
 namespace SleepingQueensTogether.ModelsLogic
 {
@@ -70,7 +71,7 @@ namespace SleepingQueensTogether.ModelsLogic
             IDocumentReference cr = fdb.Collection(collectonName).Document(id);
             return cr.AddSnapshotListener(OnChange);
         }
-        public async void GetDocumentsWhereEqualTo(string collectonName, string fName, object fValue, Action<IQuerySnapshot> OnComplete)
+        public override async void GetDocumentsWhereEqualTo(string collectonName, string fName, object fValue, Action<IQuerySnapshot> OnComplete)
         {
             ICollectionReference cr = fdb.Collection(collectonName);
             IQuerySnapshot qs = await cr.WhereEqualsTo(fName, fValue).GetAsync();
