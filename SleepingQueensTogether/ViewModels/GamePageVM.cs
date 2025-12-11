@@ -17,11 +17,23 @@ namespace SleepingQueensTogether.ViewModels
         public string StatusMessage => game.StatusMessage;
         public string OpponentName => game.OpponentName;
         public string Total => $"{Strings.TotalQueens}\n{Strings.TotalPoints}";
-        public string Card1Image => game.Card1.Image;
-        public string Card2Image => game.Card2.Image;
-        public string Card3Image => game.Card3.Image;
-        public string Card4Image => game.Card4.Image;
-        public string Card5Image => game.Card5.Image;
+        public string Card1Image => game.Cards[0].Image;
+        public string Card2Image => game.Cards[1].Image;
+        public string Card3Image => game.Cards[2].Image;
+        public string Card4Image => game.Cards[3].Image;
+        public string Card5Image => game.Cards[4].Image;
+        public string QueenCard1Image => GetCardImage(0);
+        public string QueenCard2Image => GetCardImage(1);
+        public string QueenCard3Image => GetCardImage(2);
+        public string QueenCard4Image => GetCardImage(3);
+        public string QueenCard5Image => GetCardImage(4);
+        public string QueenCard6Image => GetCardImage(5);
+        public string QueenCard7Image => GetCardImage(6);
+        public string QueenCard8Image => GetCardImage(7);
+        public string QueenCard9Image => GetCardImage(8);
+        public string QueenCard10Image => GetCardImage(10);
+        public string QueenCard11Image => GetCardImage(11);
+        public string QueenCard12Image => GetCardImage(12);
         public bool IsGuest => !game.IsHostUser;
         public ICommand ChangeTurnCommand { get; }
         public ICommand StartGameCommand { get; }
@@ -58,12 +70,20 @@ namespace SleepingQueensTogether.ViewModels
             fbd.UpdateFields(Keys.GamesCollection, game.Id, dict, OnComplete);
             OnPropertyChanged(nameof(StatusMessage));
         }
-
+        private string GetCardImage(int index)
+        {
+            if (game.QueenTableCards[index].IsAwaken)
+            {
+                return game.QueenTableCards[index].Image;
+            }
+            else
+                return game.QueenTableCards[index].BackImage;
+        }
         private void OnGameChanged(object? sender, EventArgs e)
         {
             OnPropertyChanged(nameof(OpponentName));
             OnPropertyChanged(nameof(StatusMessage));
-            if (game.DeckCards.Count == 47 && game.IsHostUser)
+            if (game.DeckCards.Count == 15 && game.IsHostUser)
             {
                 game.InitializeCards();
                 OnPropertyChanged(nameof(Card1Image));

@@ -104,19 +104,19 @@ namespace SleepingQueensTogether.ModelsLogic
         public override void InitializeCards()
         {
             int number = random.Next(0, DeckCards.Count);
-            Card1 = DeckCards[number];
+            Cards[0] = DeckCards[number];
             DeckCards.RemoveAt(number);
             int number2 = random.Next(0, DeckCards.Count);
-            Card2 = DeckCards[number2];
+            Cards[1] = DeckCards[number2];
             DeckCards.RemoveAt(number2);
             int number3 = random.Next(0, DeckCards.Count);
-            Card3 = DeckCards[number3];
+            Cards[2] = DeckCards[number3];
             DeckCards.RemoveAt(number3);
             int number4 = random.Next(0, DeckCards.Count);
-            Card4 = DeckCards[number4];
+            Cards[3] = DeckCards[number4];
             DeckCards.RemoveAt(number4);
             int number5 = random.Next(0, DeckCards.Count);
-            Card5 = DeckCards[number5];
+            Cards[4] = DeckCards[number5];
             DeckCards.RemoveAt(number5);
             UpdateFbInGame(OnCompleteUpdate);
         }
