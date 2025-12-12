@@ -21,7 +21,7 @@
                 <Label
                     Grid.Column="1"
                     Grid.ColumnSpan="6"
-                    Margin="30,0,0,0"
+                    Margin="45,0,0,0"
                     FontAttributes="Bold"
                     FontSize="20"
                     HeightRequest="30"
@@ -67,7 +67,7 @@
                     Command="{Binding StartGameCommand}"
                     FontSize="18"
                     HeightRequest="50"
-                    IsVisible="{Binding IsGuest}"
+                    IsVisible="{Binding CanStartGame}"
                     Text="{x:Static m:Strings.StartGame}"
                     WidthRequest="140" />
                 <Image
@@ -151,6 +151,7 @@
                     Aspect="AspectFit"
                     HeightRequest="70"
                     Source="{Binding QueenCard12Image}" />
+
             </Grid>
             <Grid
                 Grid.Row="2"

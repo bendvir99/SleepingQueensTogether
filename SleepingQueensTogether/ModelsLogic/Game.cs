@@ -51,7 +51,8 @@ namespace SleepingQueensTogether.ModelsLogic
         {
             Dictionary<string, object> dict = new()
             {
-                { nameof(DeckCards), DeckCards }
+                { nameof(DeckCards), DeckCards },
+                { nameof(QueenTableCards), QueenTableCards }
             };
             fbd.UpdateFields(Keys.GamesCollection, Id, dict, OnComplete);
         }
@@ -82,6 +83,7 @@ namespace SleepingQueensTogether.ModelsLogic
                 GuestName = updatedGame.GuestName;
                 IsHostTurn = updatedGame.IsHostTurn;
                 DeckCards = updatedGame.DeckCards;
+                QueenTableCards = updatedGame.QueenTableCards;
                 OnGameChanged?.Invoke(this, EventArgs.Empty);
             }
             else
@@ -103,21 +105,32 @@ namespace SleepingQueensTogether.ModelsLogic
         }
         public override void InitializeCards()
         {
-            int number = random.Next(0, DeckCards.Count);
-            Cards[0] = DeckCards[number];
-            DeckCards.RemoveAt(number);
-            int number2 = random.Next(0, DeckCards.Count);
-            Cards[1] = DeckCards[number2];
-            DeckCards.RemoveAt(number2);
-            int number3 = random.Next(0, DeckCards.Count);
-            Cards[2] = DeckCards[number3];
-            DeckCards.RemoveAt(number3);
-            int number4 = random.Next(0, DeckCards.Count);
-            Cards[3] = DeckCards[number4];
-            DeckCards.RemoveAt(number4);
-            int number5 = random.Next(0, DeckCards.Count);
-            Cards[4] = DeckCards[number5];
-            DeckCards.RemoveAt(number5);
+            for (int i = 0; i < 5; i++)
+            {
+                int number = random.Next(0, DeckCards.Count);
+                Cards[i] = DeckCards[number];
+                DeckCards.RemoveAt(number);
+            }
+            if (QueenTableCards.Count == 0)
+            {
+                for (int i = 0; i < 12; i++)
+                {
+                    bool found = false;
+                    int number = 0;
+                    while (!found)
+                    {
+                        found = true;
+                        number = random.Next(0, 12);
+                        for (int j = 0; j < QueenTableCards.Count; j++)
+                        {
+                            if (QueenTableCards[j].QueenValue == number) found = false;
+                        }
+                    }
+                    QueenTableCards.Add(new Card("Queen", number));
+                }
+            }
+            
+
             UpdateFbInGame(OnCompleteUpdate);
         }
         public override void DeleteDocument(Action<Task> OnComplete)

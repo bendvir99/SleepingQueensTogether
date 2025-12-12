@@ -1,77 +1,33 @@
-﻿using Microsoft.Maui.Controls;
-using SleepingQueensTogether.Models;
-using SleepingQueensTogether.ModelsLogic;
+﻿using SleepingQueensTogether.Models;
 using SleepingQueensTogether.Views;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SleepingQueensTogether.ViewModels
 {
     class MainPageVM : ObservableObject
     {
-        private readonly Games games = new();
-        public bool IsBusy => games.IsBusy;
-        public ICommand AddGameCommand => new Command(AddGame);
-
-        private void AddGame()
-        {
-            if (!IsBusy)
-            {
-                games.AddGame();
-                OnPropertyChanged(nameof(IsBusy));
-            }
-        }
-        public Game? SelectedItem
-        {
-            get => games.CurrentGame;
-
-            set
-            {
-                if (value != null)
-                {
-                    games.CurrentGame = value;
-                    MainThread.InvokeOnMainThreadAsync(() =>
-                    {
-                        Shell.Current.Navigation.PushAsync(new GamePage(value), true);
-                    });
-                }
-            }
-        }
-
-        public ObservableCollection<Game>? GamesList => games.GamesList;
+        public ICommand PlayCommand { get; }
+        public ICommand RulesCommand { get; }
         public MainPageVM()
         {
-            games.OnGameAdded += OnGameAdded;
-            games.OnGamesChanged += OnGamesChanged;
+            PlayCommand = new Command(Play);
+            RulesCommand = new Command(Rules);
         }
 
-        private void OnGamesChanged(object? sender, EventArgs e)
+        private void Rules()
         {
-            OnPropertyChanged(nameof(GamesList));
-        }
-
-        private void OnGameAdded(object? sender, Game game)
-        {
-            OnPropertyChanged(nameof(IsBusy));
             MainThread.InvokeOnMainThreadAsync(() =>
             {
-                Shell.Current.Navigation.PushAsync(new GamePage(game), true);
+                Shell.Current.Navigation.PushAsync(new RulesPage(), true);
             });
-        }        
-        internal void AddSnapshotListener()
-        {
-            games.AddSnapshotListener();
         }
 
-        internal void RemoveSnapshotListener()
+        private void Play()
         {
-            games.RemoveSnapshotListener();
+            MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                Shell.Current.Navigation.PushAsync(new PlayPage(), true);
+            });
         }
-
     }
 }

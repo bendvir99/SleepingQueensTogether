@@ -32,9 +32,9 @@ namespace SleepingQueensTogether.Models
         [Ignored]
         public abstract string OpponentName { get; }
         [Ignored]
-        public Card[] Cards = {new Card(), new Card(), new Card(), new Card(), new Card() };
+        public Card[] Cards = { new(), new(), new(), new(), new() };
         public List<Card> DeckCards = [new Card("Number", 1), new Card("Number", 2), new Card("Number", 3), new Card("Number", 4), new Card("Number", 5), new Card("Number", 6), new Card("Number", 7), new Card("Number", 8), new Card("Number", 9), new Card("Number", 10), new Card("King", 1), new Card("King", 2), new Card("King", 3), new Card("King", 4), new Card("King", 5), new Card("King", 6), new Card("King", 7), new Card("King", 8), new Card("King", 9), new Card("King", 10)];
-        public List<Card> QueenTableCards = [new Card("Queen", 1), new Card("Queen", 2), new Card("Queen", 3), new Card("Queen", 4), new Card("Queen", 5), new Card("Queen", 6), new Card("Queen", 7), new Card("Queen", 8), new Card("Queen", 9), new Card("Queen", 10)];
+        public List<Card> QueenTableCards = new(12);
         public string HostName { get; set; } = string.Empty;
         public string GuestName { get; set; } = string.Empty;
         public DateTime Created { get; set; }

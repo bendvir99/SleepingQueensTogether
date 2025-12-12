@@ -10,16 +10,5 @@ namespace SleepingQueensTogether
             InitializeComponent();
             BindingContext = mpVM;
         }
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            mpVM.AddSnapshotListener();
-        }
-
-        protected override void OnDisappearing()
-        {
-            mpVM.RemoveSnapshotListener();
-            base.OnDisappearing();
-        }
     }
 }

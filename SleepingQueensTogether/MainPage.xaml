@@ -6,39 +6,36 @@
     xmlns:m="clr-namespace:SleepingQueensTogether.Models"
     xmlns:v="clr-namespace:SleepingQueensTogether.Views"
     xmlns:vm="clr-namespace:SleepingQueensTogether.ViewModels"
-    x:DataType="vm:MainPageVM"
-    IsBusy="{Binding IsBusy}">
-    <VerticalStackLayout>
-        <Button
-            Grid.Column="1"
-            Margin="10"
-            Command="{Binding AddGameCommand}"
-            FontSize="Body"
-            HorizontalOptions="Fill"
-            Text="{x:Static m:Strings.AddGame}" />
-        <ListView ItemsSource="{Binding GamesList}" SelectedItem="{Binding SelectedItem}">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="m:GameModel">
-                    <ViewCell>
-                        <Grid ColumnDefinitions="*,2.5*">
-                            <Label
-                                Grid.Column="0"
-                                Margin="20,0,0,0"
-                                FontAttributes="Bold"
-                                FontSize="15"
-                                HorizontalTextAlignment="Start"
-                                Text="{Binding HostName}"
-                                VerticalOptions="Center" />
-                            <Label
-                                Grid.Column="1"
-                                Margin="20,0,0,0"
-                                FontSize="15"
-                                Text="{Binding Created}"
-                                VerticalOptions="Center" />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </VerticalStackLayout>
+    Title="MainPage"
+    x:DataType="vm:MainPageVM">
+    <Grid>
+        <Image Aspect="AspectFill" Source="sleepingqueens.jpg" />
+
+        <Grid RowDefinitions="Auto, Auto, Auto">
+            <Label
+                Margin="25,50,0,0"
+                FontFamily="ArchivoBlack-Regular"
+                FontSize="40"
+                Text="{x:Static m:Strings.MainTitle}"
+                TextColor="White">
+                <Label.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Radius="5"
+                        Offset="0,0" />
+                </Label.Shadow>
+            </Label>
+            <Button
+                Grid.Row="1"
+                Margin="0,100,0,0"
+                Command="{Binding PlayCommand}"
+                Text="{x:Static m:Strings.Play}"
+                WidthRequest="200" />
+            <Button
+                Grid.Row="2"
+                Command="{Binding RulesCommand}"
+                Text="{x:Static m:Strings.Rules}"
+                WidthRequest="200" />
+        </Grid>
+    </Grid>
 </ContentPage>
