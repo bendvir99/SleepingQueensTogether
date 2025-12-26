@@ -40,8 +40,8 @@ namespace SleepingQueensTogether.ViewModels
         public ObservableCollection<Game>? GamesList => games.GamesList;
         public PlayPageVM()
         {
-            games.OnGameAdded += OnGameAdded;
-            games.OnGamesChanged += OnGamesChanged;
+            games.GameAdded += OnGameAdded;
+            games.GamesChanged += OnGamesChanged;
         }
 
         private void OnGamesChanged(object? sender, EventArgs e)

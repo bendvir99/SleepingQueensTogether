@@ -13,7 +13,7 @@ namespace SleepingQueensTogether.ModelsLogic
             {
                 IsHostUser = true
             };
-            currentGame.OnGameDeleted += OnGameDeleted;
+            currentGame.GameDeleted += OnGameDeleted;
             currentGame.SetDocument(OnComplete);
         }
         protected override void OnGameDeleted(object? sender, EventArgs e)
@@ -26,7 +26,7 @@ namespace SleepingQueensTogether.ModelsLogic
         protected override void OnComplete(Task task)
         {
             IsBusy = false;
-            OnGameAdded?.Invoke(this, currentGame!);
+            GameAdded?.Invoke(this, currentGame!);
         }
         public Games()
         {
@@ -62,7 +62,7 @@ namespace SleepingQueensTogether.ModelsLogic
                     GamesList.Add(game);
                 }
             }
-            OnGamesChanged?.Invoke(this, EventArgs.Empty);
+            GamesChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

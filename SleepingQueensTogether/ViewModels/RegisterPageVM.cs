@@ -1,8 +1,5 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using SleepingQueensTogether.Models;
+﻿using SleepingQueensTogether.Models;
 using SleepingQueensTogether.ModelsLogic;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
 
 namespace SleepingQueensTogether.ViewModels

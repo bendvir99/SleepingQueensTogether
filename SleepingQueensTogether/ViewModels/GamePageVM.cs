@@ -1,11 +1,6 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using SleepingQueensTogether.Models;
 using SleepingQueensTogether.ModelsLogic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SleepingQueensTogether.ViewModels
@@ -13,10 +8,11 @@ namespace SleepingQueensTogether.ViewModels
     public partial class GamePageVM : ObservableObject
     {
         private readonly Game game;
+        public string Timeleft => game.TimeLeft;
         public string MyName => game.MyName;
         public string StatusMessage => game.StatusMessage;
         public string OpponentName => game.OpponentName;
-        public string Total => $"{Strings.TotalQueens}\n{Strings.TotalPoints}";
+        public static string Total => $"{Strings.TotalQueens}\n{Strings.TotalPoints}";
         public string Card1Image => game.Cards[0].Image;
         public string Card2Image => game.Cards[1].Image;
         public string Card3Image => game.Cards[2].Image;
@@ -39,7 +35,8 @@ namespace SleepingQueensTogether.ViewModels
         public ICommand StartGameCommand { get; }
         public GamePageVM(Game game)
         {
-            game.OnGameChanged += OnGameChanged;
+            game.GameChanged += OnGameChanged;
+            game.TimeLeftChanged += OnTimeLeftChanged;
             ChangeTurnCommand = new Command(ChangeTurn);
             StartGameCommand = new Command(StartGame);
             this.game = game;
@@ -48,6 +45,12 @@ namespace SleepingQueensTogether.ViewModels
                 game.UpdateGuestUser(OnComplete);
             }
         }
+
+        private void OnTimeLeftChanged(object? sender, EventArgs e)
+        {
+            OnPropertyChanged(nameof(Timeleft));
+        }
+
         private void StartGame()
         {
             game.InitializeCards();

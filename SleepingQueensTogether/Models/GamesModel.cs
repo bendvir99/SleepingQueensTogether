@@ -14,8 +14,8 @@ namespace SleepingQueensTogether.Models
         public Game? CurrentGame { get => currentGame; set => currentGame = value; }
         public ObservableCollection<Game>? GamesList { get; set; } = [];
 
-        public EventHandler<Game>? OnGameAdded;
-        public EventHandler? OnGamesChanged;
+        public EventHandler<Game>? GameAdded;
+        public EventHandler? GamesChanged;
         public abstract void RemoveSnapshotListener();
         public abstract void AddSnapshotListener();
         public abstract void AddGame();

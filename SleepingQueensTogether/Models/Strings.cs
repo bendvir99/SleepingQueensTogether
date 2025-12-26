@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SleepingQueensTogether.Models
+﻿namespace SleepingQueensTogether.Models
 {
     internal static class Strings
     {
@@ -52,5 +46,6 @@ namespace SleepingQueensTogether.Models
         public const string Play = "Play";
         public const string MainTitle = "Sleeping Queens Together";
         public const string Rules = "Rules";
+        public const string TimeUp = "Time Up";
     }
 }

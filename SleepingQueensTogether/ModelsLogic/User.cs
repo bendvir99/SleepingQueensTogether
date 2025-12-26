@@ -1,7 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using SleepingQueensTogether.Models;
-using SleepingQueensTogether.ViewModels;
+﻿using SleepingQueensTogether.Models;
 
 namespace SleepingQueensTogether.ModelsLogic
 {

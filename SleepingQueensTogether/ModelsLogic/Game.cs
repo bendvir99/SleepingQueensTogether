@@ -1,8 +1,7 @@
 ﻿using CommunityToolkit.Maui.Alerts;
-using Microsoft.Maui.Animations;
+using CommunityToolkit.Mvvm.Messaging;
 using Plugin.CloudFirestore;
 using SleepingQueensTogether.Models;
-using System.Collections.ObjectModel;
 
 namespace SleepingQueensTogether.ModelsLogic
 {
@@ -15,8 +14,21 @@ namespace SleepingQueensTogether.ModelsLogic
         {
             HostName = fbd.DisplayName;
             Created = DateTime.Now;
+            TimerSettings ts = new(60000, 1000);
+            WeakReferenceMessenger.Default.Send(new AppMessage<TimerSettings>(ts));
+            WeakReferenceMessenger.Default.Register<AppMessage<long>>(this, (r, m) =>
+            {
+                OnMessageReceived(m.Value);
+            });
             UpdateStatus();
         }
+
+        private void OnMessageReceived(long timeLeft)
+        {
+            TimeLeft = timeLeft != Keys.FinishedSignal ? double.Round(timeLeft / 1000, 1).ToString() : Strings.TimeUp;
+            TimeLeftChanged?.Invoke(this, EventArgs.Empty);
+        }
+
         protected override void UpdateStatus()
         {
             _status.CurrentStatus = IsHostUser && IsHostTurn || !IsHostUser && !IsHostTurn ?
@@ -71,7 +83,7 @@ namespace SleepingQueensTogether.ModelsLogic
         protected override void OnComplete(Task task)
         {
             if (task.IsCompletedSuccessfully)
-                OnGameDeleted?.Invoke(this, EventArgs.Empty);
+                GameDeleted?.Invoke(this, EventArgs.Empty);
         }
 
         protected override void OnChange(IDocumentSnapshot? snapshot, Exception? error)
@@ -84,7 +96,7 @@ namespace SleepingQueensTogether.ModelsLogic
                 IsHostTurn = updatedGame.IsHostTurn;
                 DeckCards = updatedGame.DeckCards;
                 QueenTableCards = updatedGame.QueenTableCards;
-                OnGameChanged?.Invoke(this, EventArgs.Empty);
+                GameChanged?.Invoke(this, EventArgs.Empty);
             }
             else
             {

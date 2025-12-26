@@ -25,7 +25,7 @@
                     FontAttributes="Bold"
                     FontSize="20"
                     HeightRequest="30"
-                    Text="{Binding OpponentName}" />
+                    Text="{Binding Timeleft}" />
                 <Image
                     Grid.Row="1"
                     Grid.Column="2"

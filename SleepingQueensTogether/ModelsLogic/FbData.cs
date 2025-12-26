@@ -1,8 +1,5 @@
-﻿using Firebase.Auth;
-using Firebase.Auth.Providers;
-using Plugin.CloudFirestore;
+﻿using Plugin.CloudFirestore;
 using SleepingQueensTogether.Models;
-using System.Collections.ObjectModel;
 
 namespace SleepingQueensTogether.ModelsLogic
 {

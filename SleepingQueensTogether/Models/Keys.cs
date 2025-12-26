@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SleepingQueensTogether.Models
+﻿namespace SleepingQueensTogether.Models
 {
     internal static class Keys
     {
@@ -15,5 +9,6 @@ namespace SleepingQueensTogether.Models
         public const string JsonApiAuthDomainKey = "sleepingqueenstogether" + ".firebaseapp.com";
         public const string RememberMeKey = "RememberMe";
         public const string GamesCollection = "Games";
+        public const long FinishedSignal = -1000;
     }
 }

@@ -1,12 +1,6 @@
 ﻿using Plugin.CloudFirestore;
 using Plugin.CloudFirestore.Attributes;
 using SleepingQueensTogether.ModelsLogic;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SleepingQueensTogether.Models
 {
@@ -20,9 +14,11 @@ namespace SleepingQueensTogether.Models
         [Ignored]
         public string StatusMessage => Status.StatusMessage;
         [Ignored]
-        public EventHandler? OnGameChanged;
+        public EventHandler? GameChanged;
         [Ignored]
-        public EventHandler? OnGameDeleted;
+        public EventHandler? GameDeleted;
+        [Ignored]
+        public EventHandler? TimeLeftChanged;
         [Ignored]
         public string Id { get; set; } = string.Empty;
         [Ignored]
@@ -32,7 +28,8 @@ namespace SleepingQueensTogether.Models
         [Ignored]
         public abstract string OpponentName { get; }
         [Ignored]
-        public Card[] Cards = { new(), new(), new(), new(), new() };
+        public string TimeLeft { get; protected set; } = string.Empty;
+        public Card[] Cards = [new(), new(), new(), new(), new()];
         public List<Card> DeckCards = [new Card("Number", 1), new Card("Number", 2), new Card("Number", 3), new Card("Number", 4), new Card("Number", 5), new Card("Number", 6), new Card("Number", 7), new Card("Number", 8), new Card("Number", 9), new Card("Number", 10), new Card("King", 1), new Card("King", 2), new Card("King", 3), new Card("King", 4), new Card("King", 5), new Card("King", 6), new Card("King", 7), new Card("King", 8), new Card("King", 9), new Card("King", 10)];
         public List<Card> QueenTableCards = new(12);
         public string HostName { get; set; } = string.Empty;
