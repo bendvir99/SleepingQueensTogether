@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using CommunityToolkit.Mvvm.Messaging;
 using SleepingQueensTogether.Models;
@@ -12,6 +13,18 @@ namespace SleepingQueensTogether
         override protected void OnCreate(Android.OS.Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            RegisterTimeMessage();
+            StartDeleteFbDocsService();
+        }
+
+        private void StartDeleteFbDocsService()
+        {
+            Intent intent = new(this, typeof(DeleteFbDocsService));
+            StartService(intent);
+        }
+
+        private void RegisterTimeMessage()
+        {
             WeakReferenceMessenger.Default.Register<AppMessage<TimerSettings>>(this, (r, m) =>
             {
                 OnMessageReceived(m.Value);

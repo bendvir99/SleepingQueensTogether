@@ -67,7 +67,7 @@ namespace SleepingQueensTogether.ViewModels
 
         private bool CanStart()
         {
-            return !game.IsHostUser && game.DeckCards.Count == 20;
+            return !game.IsHostUser && game.DeckCards.Count == 66;
         }
 
         private void ChangeTurn()
@@ -86,7 +86,7 @@ namespace SleepingQueensTogether.ViewModels
         {
             if (game.QueenTableCards.Count == 0)
                 return "greencard.png";
-            if (game.QueenTableCards[index].IsAwaken)
+            if (!game.QueenTableCards[index].IsAwaken)
             {
                 return game.QueenTableCards[index].Image;
             }
@@ -97,7 +97,7 @@ namespace SleepingQueensTogether.ViewModels
         {
             OnPropertyChanged(nameof(OpponentName));
             OnPropertyChanged(nameof(StatusMessage));
-            if (game.DeckCards.Count == 15 && game.IsHostUser)
+            if (game.DeckCards.Count == 61 && game.IsHostUser)
             {
                 game.InitializeCards();
                 for (int i = 0; i < 5; i++)

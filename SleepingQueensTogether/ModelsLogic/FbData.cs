@@ -85,5 +85,12 @@ namespace SleepingQueensTogether.ModelsLogic
             IDocumentReference dr = fdb.Collection(collectonName).Document(id);
             await dr.DeleteAsync().ContinueWith(OnComplete);
         }
+
+        public override async void GetDocumentsWhereLessThan(string collectonName, string fName, object fValue, Action<IQuerySnapshot> OnComplete)
+        {
+            ICollectionReference cr = fdb.Collection(collectonName);
+            IQuerySnapshot qs = await cr.WhereLessThan(fName, fValue).GetAsync();
+            OnComplete(qs);
+        }
     }
 }

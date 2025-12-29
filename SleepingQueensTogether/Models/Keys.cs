@@ -10,5 +10,6 @@
         public const string RememberMeKey = "RememberMe";
         public const string GamesCollection = "Games";
         public const long FinishedSignal = -1000;
+        public const int OneHourInMilliseconds = 3600000;
     }
 }

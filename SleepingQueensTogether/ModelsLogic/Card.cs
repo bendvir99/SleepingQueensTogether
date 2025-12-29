@@ -4,11 +4,10 @@ namespace SleepingQueensTogether.ModelsLogic
 {
     public class Card : CardModel
     {
-        private static readonly string[,] cardsImage = {
-        {"ace_club.png","two_club.png","three_club.png","four_club.png","five_club.png","six_club.png","seven_club.png","eight_club.png","nine_club.png","ten_club.png","jack_club.png","queen_club.png","king_club.png"  },
-        {"ace_diamond.png","two_diamond.png","three_diamond.png","four_diamond.png","five_diamond.png","six_diamond.png","seven_diamond.png","eight_diamond.png","nine_diamond.png","ten_diamond.png","jack_diamond.png","queen_diamond.png","king_diamond.png"  },
-        {"ace_heart.png","two_heart.png","three_heart.png","four_heart.png","five_heart.png","six_heart.png","seven_heart.png","eight_heart.png","nine_heart.png","ten_heart.png","jack_heart.png","queen_heart.png","king_heart.png" },
-        {"ace_spade.png","two_spade.png","three_spade.png","four_spade.png" ,"five_spade.png","six_spade.png","seven_spade.png","eight_spade.png","nine_spade.png" ,"ten_spade.png","jack_spade.png","queen_spade.png","king_spade.png"}};
+        private static readonly string[][] cardsImage = {
+        ["cakequeen.png","catqueen.png","dogqueen.png","heartqueen.png","ladybugqueen.png","moonqueen.png","pancakequeen.png","peacockqueen.png","rainbowqueen.png","rosequeen.png","starfishqueen.png","sunflowerqueen.png"],
+        ["one.png","two.png","three.png","four.png","five.png","six.png","seven.png","eight.png","nine.png","ten.png","one.png","two.png","three.png","four.png","five.png","six.png","seven.png","eight.png","nine.png","ten.png","one.png","two.png","three.png","four.png","five.png","six.png","seven.png","eight.png","nine.png","ten.png","one.png","two.png","three.png","four.png","five.png","six.png","seven.png","eight.png","nine.png","ten.png"],
+        ["kingone.png", "kingtwo.png", "kingthree.png", "kingfour.png", "kingfive.png", "kingsix.png", "kingseven.png", "knightone.png", "knighttwo.png", "knightthree.png", "knightfour.png", "dragon.png", "jester.png", "sleepingpotion.png", "wand.png"] };
 
         public Card()
         {
@@ -18,17 +17,37 @@ namespace SleepingQueensTogether.ModelsLogic
             Type = type;
             if (type == "Queen")
             {
-                Image = cardsImage[0, value];
+                Image = cardsImage[0][value];
                 QueenValue = value;
             }
             else if (type == "Number")
             {
-                Image = cardsImage[1, value];
+                Image = cardsImage[1][value - 1];
                 Value = value;
             }
-            else
+            else if (type == "King")
             {
-                Image = cardsImage[2, value];
+                Image = cardsImage[2][value - 1];
+            }
+            else if (type == "Knight")
+            {
+                Image = cardsImage[2][value + 6];
+            }
+            else if (type == "Dragon")
+            {
+                Image = cardsImage[2][value + 10];
+            }
+            else if (type == "Jester")
+            {
+                Image = cardsImage[2][value + 11];
+            }
+            else if (type == "SleepingPotion")
+            {
+                Image = cardsImage[2][value + 12];
+            }
+            else if (type == "Wand")
+            {
+                Image = cardsImage[2][value + 13];
             }
         }
     }
