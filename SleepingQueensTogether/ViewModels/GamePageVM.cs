@@ -86,7 +86,7 @@ namespace SleepingQueensTogether.ViewModels
         {
             if (game.QueenTableCards.Count == 0)
                 return "greencard.png";
-            if (!game.QueenTableCards[index].IsAwaken)
+            if (game.QueenTableCards[index].IsAwaken)
             {
                 return game.QueenTableCards[index].Image;
             }

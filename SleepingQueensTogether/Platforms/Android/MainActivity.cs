@@ -10,6 +10,7 @@ namespace SleepingQueensTogether
     [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, LaunchMode = LaunchMode.SingleTop, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
     public class MainActivity : MauiAppCompatActivity
     {
+        MyTimer? mTimer;
         override protected void OnCreate(Android.OS.Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -29,11 +30,25 @@ namespace SleepingQueensTogether
             {
                 OnMessageReceived(m.Value);
             });
+            WeakReferenceMessenger.Default.Register<AppMessage<bool>>(this, (r, m) =>
+            {
+                OnMessageReceived(m.Value);
+            });
         }
 
-        private static void OnMessageReceived(TimerSettings value)
+        private void OnMessageReceived(bool value)
         {
-            _ = new MyTimer(value.TotalTimeInMilliseconds, value.IntervalInMilliseconds);
+            if (value)
+            {
+                mTimer?.Cancel();
+                mTimer = null;
+            }
+        }
+
+        private void OnMessageReceived(TimerSettings value)
+        {
+            mTimer = new MyTimer(value.TotalTimeInMilliseconds, value.IntervalInMilliseconds);
+            mTimer.Start();
         }
     }
 }

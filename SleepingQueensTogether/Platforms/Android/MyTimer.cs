@@ -5,12 +5,8 @@ using SleepingQueensTogether.Models;
 
 namespace SleepingQueensTogether.Platforms.Android
 {
-    public class MyTimer : CountDownTimer
+    public class MyTimer(long millisInFuture, long countDownInterval) : CountDownTimer(millisInFuture, countDownInterval)
     {
-        public MyTimer(long millisInFuture, long countDownInterval) : base(millisInFuture, countDownInterval)
-        {
-            Start();
-        }
         public override void OnFinish()
         {
             WeakReferenceMessenger.Default.Send(new AppMessage<long>(Keys.FinishedSignal));

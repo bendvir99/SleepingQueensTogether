@@ -9,6 +9,7 @@ namespace SleepingQueensTogether.Models
         protected static FbData fbd = new();
         protected Random random = new();
         protected IListenerRegistration? ilr;
+        protected TimerSettings timerSettings = new(Keys.TimerTotalTime, Keys.TimerInterval);
         protected abstract GameStatus Status { get; }
         protected GameStatus _status = new();
         [Ignored]

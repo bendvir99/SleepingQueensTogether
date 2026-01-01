@@ -6,7 +6,7 @@ namespace SleepingQueensTogether.ModelsLogic
     {
         private static readonly string[][] cardsImage = {
         ["cakequeen.png","catqueen.png","dogqueen.png","heartqueen.png","ladybugqueen.png","moonqueen.png","pancakequeen.png","peacockqueen.png","rainbowqueen.png","rosequeen.png","starfishqueen.png","sunflowerqueen.png"],
-        ["one.png","two.png","three.png","four.png","five.png","six.png","seven.png","eight.png","nine.png","ten.png","one.png","two.png","three.png","four.png","five.png","six.png","seven.png","eight.png","nine.png","ten.png","one.png","two.png","three.png","four.png","five.png","six.png","seven.png","eight.png","nine.png","ten.png","one.png","two.png","three.png","four.png","five.png","six.png","seven.png","eight.png","nine.png","ten.png"],
+        ["one.png","two.png","three.png","four.png","five.png","six.png","seven.png","eight.png","nine.png","ten.png"],
         ["kingone.png", "kingtwo.png", "kingthree.png", "kingfour.png", "kingfive.png", "kingsix.png", "kingseven.png", "knightone.png", "knighttwo.png", "knightthree.png", "knightfour.png", "dragon.png", "jester.png", "sleepingpotion.png", "wand.png"] };
 
         public Card()

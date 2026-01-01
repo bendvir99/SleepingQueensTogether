@@ -14,8 +14,6 @@ namespace SleepingQueensTogether.ModelsLogic
         {
             HostName = fbd.DisplayName;
             Created = DateTime.Now;
-            TimerSettings ts = new(60000, 1000);
-            WeakReferenceMessenger.Default.Send(new AppMessage<TimerSettings>(ts));
             WeakReferenceMessenger.Default.Register<AppMessage<long>>(this, (r, m) =>
             {
                 OnMessageReceived(m.Value);
@@ -33,6 +31,17 @@ namespace SleepingQueensTogether.ModelsLogic
         {
             _status.CurrentStatus = IsHostUser && IsHostTurn || !IsHostUser && !IsHostTurn ?
                 GameStatus.Statuses.Play : GameStatus.Statuses.Wait;
+
+            if (_status.CurrentStatus == GameStatus.Statuses.Play)
+            {
+                WeakReferenceMessenger.Default.Send(new AppMessage<TimerSettings>(timerSettings));
+            }
+            else
+            {
+                WeakReferenceMessenger.Default.Send(new AppMessage<bool>(true));
+                TimeLeft = string.Empty;
+                TimeLeftChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         public override void SetDocument(Action<System.Threading.Tasks.Task> OnComplete)
