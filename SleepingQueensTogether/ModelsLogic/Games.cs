@@ -9,7 +9,7 @@ namespace SleepingQueensTogether.ModelsLogic
         public override void AddGame()
         {
             IsBusy = true;
-            currentGame = new()
+            currentGame = new(true)
             {
                 IsHostUser = true
             };

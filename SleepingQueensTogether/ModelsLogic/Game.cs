@@ -12,13 +12,24 @@ namespace SleepingQueensTogether.ModelsLogic
 
         internal Game()
         {
-            HostName = fbd.DisplayName;
-            Created = DateTime.Now;
             WeakReferenceMessenger.Default.Register<AppMessage<long>>(this, (r, m) =>
             {
                 OnMessageReceived(m.Value);
             });
-            UpdateStatus();
+        }
+
+        internal Game(bool value)
+        {
+            if (value)
+            {
+                HostName = fbd.DisplayName;
+                Created = DateTime.Now;
+                WeakReferenceMessenger.Default.Register<AppMessage<long>>(this, (r, m) =>
+                {
+                    OnMessageReceived(m.Value);
+                });
+                UpdateStatus();
+            }
         }
 
         private void OnMessageReceived(long timeLeft)
@@ -31,17 +42,6 @@ namespace SleepingQueensTogether.ModelsLogic
         {
             _status.CurrentStatus = IsHostUser && IsHostTurn || !IsHostUser && !IsHostTurn ?
                 GameStatus.Statuses.Play : GameStatus.Statuses.Wait;
-
-            if (_status.CurrentStatus == GameStatus.Statuses.Play)
-            {
-                WeakReferenceMessenger.Default.Send(new AppMessage<TimerSettings>(timerSettings));
-            }
-            else
-            {
-                WeakReferenceMessenger.Default.Send(new AppMessage<bool>(true));
-                TimeLeft = string.Empty;
-                TimeLeftChanged?.Invoke(this, EventArgs.Empty);
-            }
         }
 
         public override void SetDocument(Action<System.Threading.Tasks.Task> OnComplete)
@@ -106,6 +106,17 @@ namespace SleepingQueensTogether.ModelsLogic
                 DeckCards = updatedGame.DeckCards;
                 QueenTableCards = updatedGame.QueenTableCards;
                 GameChanged?.Invoke(this, EventArgs.Empty);
+                UpdateStatus();
+                if (_status.CurrentStatus == GameStatus.Statuses.Play)
+                {
+                    WeakReferenceMessenger.Default.Send(new AppMessage<TimerSettings>(timerSettings));
+                }
+                else
+                {
+                    WeakReferenceMessenger.Default.Send(new AppMessage<bool>(true));
+                    TimeLeft = string.Empty;
+                    TimeLeftChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
             else
             {
