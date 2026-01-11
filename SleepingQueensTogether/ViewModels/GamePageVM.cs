@@ -13,23 +13,9 @@ namespace SleepingQueensTogether.ViewModels
         public string StatusMessage => game.StatusMessage;
         public string OpponentName => game.OpponentName;
         public static string Total => $"{Strings.TotalQueens}\n{Strings.TotalPoints}";
-        public string Card1Image => game.Cards[0].Image;
-        public string Card2Image => game.Cards[1].Image;
-        public string Card3Image => game.Cards[2].Image;
-        public string Card4Image => game.Cards[3].Image;
-        public string Card5Image => game.Cards[4].Image;
-        public string QueenCard1Image => GetCardImage(0);
-        public string QueenCard2Image => GetCardImage(1);
-        public string QueenCard3Image => GetCardImage(2);
-        public string QueenCard4Image => GetCardImage(3);
-        public string QueenCard5Image => GetCardImage(4);
-        public string QueenCard6Image => GetCardImage(5);
-        public string QueenCard7Image => GetCardImage(6);
-        public string QueenCard8Image => GetCardImage(7);
-        public string QueenCard9Image => GetCardImage(8);
-        public string QueenCard10Image => GetCardImage(9);
-        public string QueenCard11Image => GetCardImage(10);
-        public string QueenCard12Image => GetCardImage(11);
+        public string[] CardImages => [.. game.Cards.Select(c => c.Image)];
+        public string[] QueenCardImages => [.. Enumerable.Range(0, 12).Select(i => GetCardImage(i))];
+
         public bool CanStartGame => CanStart();
         public ICommand ChangeTurnCommand { get; }
         public ICommand StartGameCommand { get; }
@@ -54,13 +40,10 @@ namespace SleepingQueensTogether.ViewModels
         private void StartGame()
         {
             game.InitializeCards();
-            for(int i = 0; i < 5; i++)
-            {
-                OnPropertyChanged($"Card{i + 1}Image");
-            }
+            OnPropertyChanged($"CardImages");
             for (int i = 0; i < 12; i++)
             {
-                OnPropertyChanged($"QueenCard{i + 1}Image");
+                OnPropertyChanged($"QueenCardImages");
             }
             OnPropertyChanged(nameof(CanStartGame));
         }
@@ -86,7 +69,7 @@ namespace SleepingQueensTogether.ViewModels
         {
             if (game.QueenTableCards.Count == 0)
                 return "greencard.png";
-            if (game.QueenTableCards[index].IsAwaken)
+            if (!game.QueenTableCards[index].IsAwaken)
             {
                 return game.QueenTableCards[index].Image;
             }
@@ -100,14 +83,8 @@ namespace SleepingQueensTogether.ViewModels
             if (game.DeckCards.Count == 61 && game.IsHostUser)
             {
                 game.InitializeCards();
-                for (int i = 0; i < 5; i++)
-                {
-                    OnPropertyChanged($"Card{i + 1}Image");
-                }
-                for (int i = 0; i < 12; i++)
-                {
-                    OnPropertyChanged($"QueenCard{i + 1}Image");
-                }
+                OnPropertyChanged($"CardImages");
+                OnPropertyChanged($"QueenCardImages");
             }
         }
 

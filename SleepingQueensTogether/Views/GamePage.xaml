@@ -79,118 +79,119 @@
                     HeightRequest="50"
                     Text="{x:Static m:Strings.StartGame}"
                     WidthRequest="140" />
-                <Image
+                <ImageButton
                     Grid.Row="1"
                     Grid.Column="1"
                     Margin="10,40,0,0"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding QueenCard1Image}" />
-                <Image
+                    Source="{Binding QueenCardImages[0]}" />
+                <ImageButton
                     Grid.Row="1"
                     Margin="10,40,0,0"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding QueenCard2Image}" />
-                <Image
+                    Source="{Binding QueenCardImages[1]}" />
+                <ImageButton
                     Grid.Row="1"
                     Grid.Column="6"
                     Margin="0,40,10,0"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding QueenCard7Image}" />
-                <Image
+                    Source="{Binding QueenCardImages[6]}" />
+                <ImageButton
                     Grid.Row="1"
                     Grid.Column="5"
                     Margin="0,40,10,0"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding QueenCard8Image}" />
-                <Image
+                    Source="{Binding QueenCardImages[7]}" />
+                <ImageButton
                     Grid.Row="2"
                     Grid.Column="1"
                     Margin="10,60,0,0"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding QueenCard3Image}" />
-                <Image
+                    Source="{Binding QueenCardImages[2]}" />
+                <ImageButton
                     Grid.Row="2"
                     Margin="10,60,0,0"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding QueenCard4Image}" />
-                <Image
+                    Source="{Binding QueenCardImages[3]}" />
+                <ImageButton
                     Grid.Row="2"
                     Grid.Column="6"
                     Margin="0,60,10,0"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding QueenCard9Image}" />
-                <Image
+                    Source="{Binding QueenCardImages[8]}" />
+                <ImageButton
                     Grid.Row="2"
                     Grid.Column="5"
                     Margin="0,60,10,0"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding QueenCard10Image}" />
-                <Image
+                    Source="{Binding QueenCardImages[9]}" />
+                <ImageButton
                     Grid.Row="3"
                     Grid.Column="1"
                     Margin="10,80,0,0"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding QueenCard5Image}" />
-                <Image
+                    Source="{Binding QueenCardImages[4]}" />
+                <ImageButton
                     Grid.Row="3"
                     Margin="10,80,0,0"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding QueenCard6Image}" />
-                <Image
+                    Source="{Binding QueenCardImages[5]}" />
+                <ImageButton
                     Grid.Row="3"
                     Grid.Column="6"
                     Margin="0,80,10,0"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding QueenCard11Image}" />
-                <Image
+                    Source="{Binding QueenCardImages[10]}" />
+                <ImageButton
                     Grid.Row="3"
                     Grid.Column="5"
                     Margin="0,80,10,0"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding QueenCard12Image}" />
+                    Source="{Binding QueenCardImages[11]}" />
 
             </Grid>
             <Grid
                 Grid.Row="2"
                 ColumnDefinitions="*, *, *, *, *, *, *, *, *"
                 RowDefinitions="*, *">
-                <Image
+
+                <ImageButton
                     Grid.Column="2"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding Card1Image}" />
-                <Image
+                    Source="{Binding CardImages[0]}" />
+                <ImageButton
                     Grid.Column="3"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding Card2Image}" />
-                <Image
+                    Source="{Binding CardImages[1]}" />
+                <ImageButton
                     Grid.Column="4"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding Card3Image}" />
-                <Image
+                    Source="{Binding CardImages[2]}" />
+                <ImageButton
                     Grid.Column="5"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding Card4Image}" />
-                <Image
+                    Source="{Binding CardImages[3]}" />
+                <ImageButton
                     Grid.Column="6"
                     Aspect="AspectFit"
                     HeightRequest="70"
-                    Source="{Binding Card5Image}" />
+                    Source="{Binding CardImages[4]}" />
                 <Label
                     Grid.Row="1"
                     Grid.ColumnSpan="9"
