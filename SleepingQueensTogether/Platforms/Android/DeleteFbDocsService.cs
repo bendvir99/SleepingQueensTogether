@@ -9,10 +9,11 @@ using SleepingQueensTogether.ModelsLogic;
 
 namespace SleepingQueensTogether.Platforms.Android
 {
+    [Service]
     public class DeleteFbDocsService : Service
     {
-        private bool IsRunning = true;
-        readonly FbData fbd = new();
+        private bool isRunning = true;
+        private readonly FbData fbd = new();
         [return: GeneratedEnum]
         public override StartCommandResult OnStartCommand(Intent? intent, [GeneratedEnum] StartCommandFlags flags, int startId)
         {
@@ -24,29 +25,28 @@ namespace SleepingQueensTogether.Platforms.Android
 
         private void DeleteFbDocs()
         {
-            while (IsRunning)
+            while (isRunning)
             {
                 fbd.GetDocumentsWhereLessThan(Keys.GamesCollection, nameof(GameModel.Created), DateTime.Now.AddDays(-1), OnComplete);
                 Thread.Sleep(Keys.OneHourInMilliseconds);
-                
             }
             StopSelf();
         }
+
         private void OnComplete(IQuerySnapshot qs)
         {
             foreach (IDocumentSnapshot doc in qs.Documents)
-            {
                 fbd.DeleteDocument(Keys.GamesCollection, doc.Id, (task) => { });
-            }
         }
+
         public override IBinder? OnBind(Intent? intent)
         {
-            // not used
+            // Not used
             return null;
         }
         public override void OnDestroy()
         {
-            IsRunning = false;
+            isRunning = false;
             base.OnDestroy();
         }
     }

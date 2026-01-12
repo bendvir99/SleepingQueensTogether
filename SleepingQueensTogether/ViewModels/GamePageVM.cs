@@ -41,10 +41,7 @@ namespace SleepingQueensTogether.ViewModels
         {
             game.InitializeCards();
             OnPropertyChanged($"CardImages");
-            for (int i = 0; i < 12; i++)
-            {
-                OnPropertyChanged($"QueenCardImages");
-            }
+            OnPropertyChanged($"QueenCardImages");
             OnPropertyChanged(nameof(CanStartGame));
         }
 
