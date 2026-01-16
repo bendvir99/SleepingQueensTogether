@@ -1,9 +1,11 @@
 ﻿using SleepingQueensTogether.Models;
+using Xamarin.Google.Crypto.Tink.Prf;
 
 namespace SleepingQueensTogether.ModelsLogic
 {
     public class Card : CardModel
     {
+        private const int OFFSET = 50;
         private static readonly string[][] cardsImage = {
         ["cakequeen.png","catqueen.png","dogqueen.png","heartqueen.png","ladybugqueen.png","moonqueen.png","pancakequeen.png","peacockqueen.png","rainbowqueen.png","rosequeen.png","starfishqueen.png","sunflowerqueen.png"],
         ["one.png","two.png","three.png","four.png","five.png","six.png","seven.png","eight.png","nine.png","ten.png"],
@@ -11,6 +13,8 @@ namespace SleepingQueensTogether.ModelsLogic
 
         public Card()
         {
+            Type = "Empty";
+            Image = "orangecard.png";
         }
         public Card(string type, int value)
         {
@@ -49,6 +53,25 @@ namespace SleepingQueensTogether.ModelsLogic
             {
                 Image = cardsImage[2][value + 13];
             }
+        }
+        public override void ToggleSelected()
+        {
+            IsSelected = !IsSelected;
+            Thickness t = Margin;
+            t.Bottom = IsSelected ? OFFSET : 0;
+            Margin = t;
+        }
+        public static Card Copy(Card card)
+        {
+            Card newCard = new();
+            if (!card.IsEmpty)
+            {
+                newCard = new Card(card.Type, card.Value)
+                {
+                    Index = card.Index
+                };
+            }
+            return newCard;
         }
     }
 }

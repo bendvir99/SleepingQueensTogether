@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.Messaging;
+using Java.Lang;
 using Plugin.CloudFirestore;
 using SleepingQueensTogether.Models;
 
@@ -7,11 +8,16 @@ namespace SleepingQueensTogether.ModelsLogic
 {
     public class Game : GameModel
     {
+        private readonly CardsSet myCards;
         public override string OpponentName => IsHostUser ? GuestName : HostName;
         protected override GameStatus Status => _status;
 
         internal Game()
         {
+            myCards = new CardsSet(full: false)
+            {
+                SingleSelect = false
+            };
             WeakReferenceMessenger.Default.Register<AppMessage<long>>(this, (r, m) =>
             {
                 OnMessageReceived(m.Value);
@@ -20,16 +26,17 @@ namespace SleepingQueensTogether.ModelsLogic
 
         internal Game(bool value)
         {
-            if (value)
+            myCards = new CardsSet(full: false)
             {
-                HostName = fbd.DisplayName;
-                Created = DateTime.Now;
-                WeakReferenceMessenger.Default.Register<AppMessage<long>>(this, (r, m) =>
-                {
-                    OnMessageReceived(m.Value);
-                });
-                UpdateStatus();
-            }
+                SingleSelect = false
+            };
+            HostName = fbd.DisplayName;
+            Created = DateTime.Now;
+            WeakReferenceMessenger.Default.Register<AppMessage<long>>(this, (r, m) =>
+            {
+                OnMessageReceived(m.Value);
+            });
+            UpdateStatus();
         }
 
         private void OnMessageReceived(long timeLeft)
@@ -95,7 +102,7 @@ namespace SleepingQueensTogether.ModelsLogic
                 GameDeleted?.Invoke(this, EventArgs.Empty);
         }
 
-        protected override void OnChange(IDocumentSnapshot? snapshot, Exception? error)
+        protected override void OnChange(IDocumentSnapshot? snapshot, System.Exception? error)
         {
             Game? updatedGame = snapshot?.ToObject<Game>();
             if (updatedGame != null)
@@ -135,35 +142,44 @@ namespace SleepingQueensTogether.ModelsLogic
             
 
         }
-        public override void InitializeCards()
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                int number = random.Next(0, DeckCards.Count);
-                Cards[i] = DeckCards[number];
-                DeckCards.RemoveAt(number);
-            }
-            if (QueenTableCards.Count == 0)
-            {
-                for (int i = 0; i < 12; i++)
-                {
-                    bool found = false;
-                    int number = 0;
-                    while (!found)
-                    {
-                        found = true;
-                        number = random.Next(0, 12);
-                        for (int j = 0; j < QueenTableCards.Count; j++)
-                        {
-                            if (QueenTableCards[j].QueenValue == number) found = false;
-                        }
-                    }
-                    QueenTableCards.Add(new Card("Queen", number));
-                }
-            }
+        //public override void InitializeCards()
+        //{
+        //    for (int i = 0; i < 5; i++)
+        //    {
+        //        int number = random.Next(0, DeckCards.Count);
+        //        Cards[i] = DeckCards[number];
+        //        DeckCards.RemoveAt(number);
+        //    }
+        //    if (QueenTableCards.Count == 0)
+        //    {
+        //        for (int i = 0; i < 12; i++)
+        //        {
+        //            bool found = false;
+        //            int number = 0;
+        //            while (!found)
+        //            {
+        //                found = true;
+        //                number = random.Next(0, 12);
+        //                for (int j = 0; j < QueenTableCards.Count; j++)
+        //                {
+        //                    if (QueenTableCards[j].QueenValue == number) found = false;
+        //                }
+        //            }
+        //            QueenTableCards.Add(new Card("Queen", number));
+        //        }
+        //    }
             
 
-            UpdateFbInGame(OnCompleteUpdate);
+        //    UpdateFbInGame(OnCompleteUpdate);
+        //}
+        public override Card TakeCard()
+        {
+            Card card = Package.TakeCard();
+            if (!card.IsEmpty)
+            {
+                card = myCards.Add(card);
+            }
+            return card;
         }
         public override void DeleteDocument(Action<Task> OnComplete)
         {

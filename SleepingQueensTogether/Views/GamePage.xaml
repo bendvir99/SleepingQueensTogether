@@ -162,45 +162,50 @@
                     Source="{Binding QueenCardImages[11]}" />
 
             </Grid>
-            <Grid
+            <ScrollView
+                x:Name="scrlMyCards"
                 Grid.Row="2"
-                ColumnDefinitions="*, *, *, *, *, *, *, *, *"
-                RowDefinitions="*, *">
+                Orientation="Horizontal">
+                <Grid
+                    x:Name="grdMyCards"
+                    ColumnDefinitions="*"
+                    RowDefinitions="*">
+                    <!--<ImageButton
+                        Grid.Column="2"
+                        Aspect="AspectFit"
+                        HeightRequest="70"
+                        Source="{Binding CardImages[0]}" />
+                    <ImageButton
+                        Grid.Column="3"
+                        Aspect="AspectFit"
+                        HeightRequest="70"
+                        Source="{Binding CardImages[1]}" />
+                    <ImageButton
+                        Grid.Column="4"
+                        Aspect="AspectFit"
+                        HeightRequest="70"
+                        Source="{Binding CardImages[2]}" />
+                    <ImageButton
+                        Grid.Column="5"
+                        Aspect="AspectFit"
+                        HeightRequest="70"
+                        Source="{Binding CardImages[3]}" />
+                    <ImageButton
+                        Grid.Column="6"
+                        Aspect="AspectFit"
+                        HeightRequest="70"
+                        Source="{Binding CardImages[4]}" />-->
+                    <!--<Label
+                        Grid.Row="1"
+                        Grid.ColumnSpan="9"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HeightRequest="30"
+                        Text="{Binding MyName}"
+                        VerticalOptions="Start" />-->
+                </Grid>
+            </ScrollView>
 
-                <ImageButton
-                    Grid.Column="2"
-                    Aspect="AspectFit"
-                    HeightRequest="70"
-                    Source="{Binding CardImages[0]}" />
-                <ImageButton
-                    Grid.Column="3"
-                    Aspect="AspectFit"
-                    HeightRequest="70"
-                    Source="{Binding CardImages[1]}" />
-                <ImageButton
-                    Grid.Column="4"
-                    Aspect="AspectFit"
-                    HeightRequest="70"
-                    Source="{Binding CardImages[2]}" />
-                <ImageButton
-                    Grid.Column="5"
-                    Aspect="AspectFit"
-                    HeightRequest="70"
-                    Source="{Binding CardImages[3]}" />
-                <ImageButton
-                    Grid.Column="6"
-                    Aspect="AspectFit"
-                    HeightRequest="70"
-                    Source="{Binding CardImages[4]}" />
-                <Label
-                    Grid.Row="1"
-                    Grid.ColumnSpan="9"
-                    FontAttributes="Bold"
-                    FontSize="20"
-                    HeightRequest="30"
-                    Text="{Binding MyName}"
-                    VerticalOptions="Start" />
-            </Grid>
         </Grid>
     </Grid>
 </ContentPage>
