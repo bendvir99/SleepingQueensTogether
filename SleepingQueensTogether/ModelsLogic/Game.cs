@@ -22,10 +22,13 @@ namespace SleepingQueensTogether.ModelsLogic
             {
                 OnMessageReceived(m.Value);
             });
+            Package = new CardsSet(full: true);
+
         }
 
         internal Game(bool value)
         {
+            Package = new CardsSet(full: true);
             myCards = new CardsSet(full: false)
             {
                 SingleSelect = false
@@ -75,15 +78,15 @@ namespace SleepingQueensTogether.ModelsLogic
             fbd.UpdateFields(Keys.GamesCollection, Id, dict, OnComplete);
         }
 
-        protected override void UpdateFbInGame(Action<Task> OnComplete)
-        {
-            Dictionary<string, object> dict = new()
-            {
-                { nameof(DeckCards), DeckCards },
-                { nameof(QueenTableCards), QueenTableCards }
-            };
-            fbd.UpdateFields(Keys.GamesCollection, Id, dict, OnComplete);
-        }
+        //protected override void UpdateFbInGame(Action<Task> OnComplete)
+        //{
+        //    Dictionary<string, object> dict = new()
+        //    {
+        //        { nameof(DeckCards), DeckCards },
+        //        { nameof(QueenTableCards), QueenTableCards }
+        //    };
+        //    fbd.UpdateFields(Keys.GamesCollection, Id, dict, OnComplete);
+        //}
 
         public override void AddSnapshotListener()
         {
@@ -110,7 +113,7 @@ namespace SleepingQueensTogether.ModelsLogic
                 IsFull = updatedGame.IsFull;
                 GuestName = updatedGame.GuestName;
                 IsHostTurn = updatedGame.IsHostTurn;
-                DeckCards = updatedGame.DeckCards;
+                //DeckCards = updatedGame.DeckCards;
                 QueenTableCards = updatedGame.QueenTableCards;
                 GameChanged?.Invoke(this, EventArgs.Empty);
                 UpdateStatus();

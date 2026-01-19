@@ -47,5 +47,16 @@
         public const string MainTitle = "Sleeping Queens Together";
         public const string Rules = "Rules";
         public const string TimeUp = "Time Up";
+        public const string greencard = "greencard.png";
+        public const string orangecard = "orangecard.png";
+        public const string number = "Number";
+        public const string king = "King";
+        public const string queen = "Queen";
+        public const string knight = "Knight";
+        public const string sleepingpotion = "SleepingPotion";
+        public const string wand = "Wand";
+        public const string empty = "Empty";
+        public const string joker = "Joker";
+        public const string dragon = "Dragon";
     }
 }

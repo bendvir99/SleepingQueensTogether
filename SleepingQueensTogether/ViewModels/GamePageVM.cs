@@ -69,7 +69,7 @@ namespace SleepingQueensTogether.ViewModels
 
         private bool CanStart()
         {
-            return !game.IsHostUser && game.DeckCards.Count == 66;
+            return !game.IsHostUser; /*&& game.DeckCards.Count == 66;*/
         }
 
         private void ChangeTurn()
@@ -87,10 +87,10 @@ namespace SleepingQueensTogether.ViewModels
         private string GetCardImage(int index)
         {
             if (game.QueenTableCards.Count == 0)
-                return "greencard.png";
+                return Strings.greencard;
             if (!game.QueenTableCards[index].IsAwaken)
             {
-                return game.QueenTableCards[index].Image;
+                return game.QueenTableCards[index].ImageCard;
             }
             else
                 return game.QueenTableCards[index].BackImage;

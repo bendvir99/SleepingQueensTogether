@@ -13,45 +13,45 @@ namespace SleepingQueensTogether.ModelsLogic
 
         public Card()
         {
-            Type = "Empty";
-            Image = "orangecard.png";
+            Type = Strings.empty;
+            ImageCard = Strings.orangecard;
         }
         public Card(string type, int value)
         {
             Type = type;
-            if (type == "Queen")
+            if (type == Strings.queen)
             {
-                Image = cardsImage[0][value];
+                ImageCard = cardsImage[0][value];
                 QueenValue = value;
             }
-            else if (type == "Number")
+            else if (type == Strings.number)
             {
-                Image = cardsImage[1][value - 1];
+                ImageCard = cardsImage[1][value - 1];
                 Value = value;
             }
-            else if (type == "King")
+            else if (type == Strings.king)
             {
-                Image = cardsImage[2][value - 1];
+                ImageCard = cardsImage[2][value - 1];
             }
-            else if (type == "Knight")
+            else if (type == Strings.knight)
             {
-                Image = cardsImage[2][value + 6];
+                ImageCard = cardsImage[2][value + 6];
             }
-            else if (type == "Dragon")
+            else if (type == Strings.dragon)
             {
-                Image = cardsImage[2][value + 10];
+                ImageCard = cardsImage[2][value + 10];
             }
-            else if (type == "Jester")
+            else if (type == Strings.joker)
             {
-                Image = cardsImage[2][value + 11];
+                ImageCard = cardsImage[2][value + 11];
             }
-            else if (type == "SleepingPotion")
+            else if (type == Strings.sleepingpotion)
             {
-                Image = cardsImage[2][value + 12];
+                ImageCard = cardsImage[2][value + 12];
             }
-            else if (type == "Wand")
+            else if (type == Strings.wand)
             {
-                Image = cardsImage[2][value + 13];
+                ImageCard = cardsImage[2][value + 13];
             }
         }
         public override void ToggleSelected()
