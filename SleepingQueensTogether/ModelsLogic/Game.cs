@@ -113,6 +113,7 @@ namespace SleepingQueensTogether.ModelsLogic
                 IsFull = updatedGame.IsFull;
                 GuestName = updatedGame.GuestName;
                 IsHostTurn = updatedGame.IsHostTurn;
+                Package = updatedGame.Package;
                 //DeckCards = updatedGame.DeckCards;
                 QueenTableCards = updatedGame.QueenTableCards;
                 GameChanged?.Invoke(this, EventArgs.Empty);
