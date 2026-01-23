@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui.Alerts;
+﻿using AndroidX.Activity;
+using CommunityToolkit.Maui.Alerts;
 using Plugin.Fingerprint;
 using SleepingQueensTogether.Models;
 using SleepingQueensTogether.ModelsLogic;
@@ -10,15 +11,14 @@ namespace SleepingQueensTogether.ViewModels
     class LoginPageVM : ObservableObject
     {
         private readonly User user = new();
-        private readonly FbData _fbData = new();
         public ICommand LoginCommand { get; }
         public ICommand NavigateToResetPasswordCommand { get; }
         public ICommand BiometricLoginCommand { get; }
         public ICommand ToggleIsPasswordCommand { get; }
+        public bool CanPressBiometric => CanBiometricLogin();
         public bool IsBusy => user.IsBusy;
         public bool IsPassword { get; set; } = true;
         public bool IsRegistered => user.IsRegistered;
-        private bool _canUseBiometrics = false;
         public bool RememberMe
         {
             get => user.RememberMe;
@@ -76,6 +76,7 @@ namespace SleepingQueensTogether.ViewModels
         private void OnBiometricAvailabilityChange(object? sender, EventArgs e)
         {
             (BiometricLoginCommand as Command)?.ChangeCanExecute();
+            OnPropertyChanged(nameof(CanPressBiometric));
         }
 
         private void NavigateToResetPassword()

@@ -19,7 +19,6 @@ namespace SleepingQueensTogether.Models
         public abstract bool IsValidLogin();
         public abstract bool IsValidBiometric();
         public abstract void Register();
-        public abstract void RegisterGoogle();
         public abstract void Login();
         public abstract void ResetPassword(string email);
         public abstract void SaveToPreferences();

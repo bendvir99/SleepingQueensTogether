@@ -94,8 +94,12 @@
         <Button
             Grid.Row="6"
             Grid.ColumnSpan="2"
+            BackgroundColor="White"
             Command="{Binding BiometricLoginCommand}"
-            Text="{x:Static m:Strings.BiometricLogin}" />
+            FontFamily="MaterialSymbolsOutlined"
+            FontSize="80"
+            Text="{Binding CanPressBiometric, Converter={StaticResource biometricIconConvert}}"
+            WidthRequest="100" />
 
     </Grid>
 

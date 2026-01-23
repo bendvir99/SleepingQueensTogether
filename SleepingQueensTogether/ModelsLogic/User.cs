@@ -55,13 +55,8 @@ namespace SleepingQueensTogether.ModelsLogic
 
                     if (result.Authenticated)
                     {
-                        // Biometric success → proceed with login
                         IsBusy = true;
                         fbd.SignInWithEmailAndPasswordAsync(email, password, OnCompleteBiometric);
-                    }
-                    else
-                    {
-                        // User canceled or failed
                     }
                 }
             }
@@ -75,10 +70,6 @@ namespace SleepingQueensTogether.ModelsLogic
             IsBusy = true;
 
             fbd.ResetPasswordWithEmail(email, OnCompleteResetPassword);
-        }
-        public override void RegisterGoogle()
-        {
-            //fbd.SignInWithGoogleAsync(OnComplete);
         }
 
         protected override void ShowAlert(string message)
