@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Plugin.Fingerprint;
+using Plugin.Fingerprint.Abstractions;
 using Plugin.Maui.Biometric;
 
 namespace SleepingQueensTogether
@@ -28,12 +30,10 @@ namespace SleepingQueensTogether
                     fonts.AddFont("LilitaOne-Regular.ttf", "LilitaOne-Regular");
                     fonts.AddFont("Sekuya-Regular.ttf", "Sekuya-Regular");
                 });
-            builder.Services.AddSingleton<IBiometric>(BiometricAuthenticationService.Default);
-
+            CrossFingerprint.SetCurrentActivityResolver(() => Platform.CurrentActivity);
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-
             return builder.Build();
         }
 

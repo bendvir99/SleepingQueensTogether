@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Java.Lang;
 using Plugin.CloudFirestore;
+using Plugin.Maui.Biometric;
 using SleepingQueensTogether.Models;
 
 namespace SleepingQueensTogether.ModelsLogic

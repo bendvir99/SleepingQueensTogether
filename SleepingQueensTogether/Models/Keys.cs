@@ -9,9 +9,11 @@
         public const string JsonApiAuthDomainKey = "sleepingqueenstogether" + ".firebaseapp.com";
         public const string RememberMeKey = "RememberMe";
         public const string GamesCollection = "Games";
+        public const string LastEmailKey = "LastEmail";
+        public const string LastPasswordKey = "LastPassword";
         public const long FinishedSignal = -1000;
         public const long TimerTotalTime = 60000;
         public const long TimerInterval = 1000;
-        public const int OneHourInMilliseconds = 36000;    
+        public const int OneHourInMilliseconds = 36000;  
     }
 }

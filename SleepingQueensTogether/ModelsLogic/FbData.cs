@@ -6,12 +6,6 @@ namespace SleepingQueensTogether.ModelsLogic
 {
     public partial class FbData : FbDataModel
     {
-        private readonly IBiometric _biometric;
-
-        public FbData()
-        {
-            _biometric = BiometricAuthenticationService.Default;
-        }
 
         public override async void CreateUserWithEmailAndPasswordAsync(string email, string password, string name, Action<System.Threading.Tasks.Task> OnComplete)
         {
@@ -60,42 +54,6 @@ namespace SleepingQueensTogether.ModelsLogic
                 return (Strings.RegisterUnknownError);
             }
         }
-
-        public async void SaveCredentialsForBiometrics(string email, string password)
-        {
-            await SecureStorage.SetAsync("fb_email", email);
-            await SecureStorage.SetAsync("fb_password", password);
-        }
-        public async void LoginWithBiometricsAsync(Action<Task> OnComplete)
-        {
-            var request = new BiometricAuthenticationRequest
-            {
-                Title = "Sign in" // Required
-            };
-
-            var result = await _biometric.AuthenticateAsync(request);
-
-            if (!result.Authenticated)
-            {
-                OnComplete?.Invoke(Task.FromCanceled(new CancellationToken(true)));
-                return;
-            }
-
-            string email = await SecureStorage.GetAsync("fb_email");
-            string password = await SecureStorage.GetAsync("fb_password");
-
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
-            {
-                OnComplete?.Invoke(Task.FromCanceled(new CancellationToken(true)));
-                return;
-            }
-
-            SignInWithEmailAndPasswordAsync(email, password, OnComplete);
-        }
-
-
-
-
 
         public override string SetDocument(object obj, string collectonName, string id, Action<System.Threading.Tasks.Task> OnComplete)
         {

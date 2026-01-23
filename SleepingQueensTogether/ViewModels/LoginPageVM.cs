@@ -1,4 +1,6 @@
-﻿using SleepingQueensTogether.Models;
+﻿using CommunityToolkit.Maui.Alerts;
+using Plugin.Fingerprint;
+using SleepingQueensTogether.Models;
 using SleepingQueensTogether.ModelsLogic;
 using SleepingQueensTogether.Views;
 using System.Windows.Input;
@@ -8,12 +10,15 @@ namespace SleepingQueensTogether.ViewModels
     class LoginPageVM : ObservableObject
     {
         private readonly User user = new();
+        private readonly FbData _fbData = new();
         public ICommand LoginCommand { get; }
         public ICommand NavigateToResetPasswordCommand { get; }
+        public ICommand BiometricLoginCommand { get; }
         public ICommand ToggleIsPasswordCommand { get; }
         public bool IsBusy => user.IsBusy;
         public bool IsPassword { get; set; } = true;
         public bool IsRegistered => user.IsRegistered;
+        private bool _canUseBiometrics = false;
         public bool RememberMe
         {
             get => user.RememberMe;
@@ -55,14 +60,22 @@ namespace SleepingQueensTogether.ViewModels
         public LoginPageVM()
         {
             LoginCommand = new Command(Login, CanLogin);
+            BiometricLoginCommand = new Command(BiometricLogin, CanBiometricLogin);
             ToggleIsPasswordCommand = new Command(ToggleIsPassword);
             NavigateToResetPasswordCommand = new Command(NavigateToResetPassword);
             user.OnAuthenticationComplete += OnAuthComplete;
+            user.BiometricAvailabilityChanged += OnBiometricAvailabilityChange;
+            user.CheckBiometricAvailability();
             if (Preferences.Get(Keys.RememberMeKey, false))
             {
                 Password = Preferences.Get(Keys.PasswordKey, string.Empty);
                 Email = Preferences.Get(Keys.GmailKey, string.Empty);
             }
+        }
+
+        private void OnBiometricAvailabilityChange(object? sender, EventArgs e)
+        {
+            (BiometricLoginCommand as Command)?.ChangeCanExecute();
         }
 
         private void NavigateToResetPassword()
@@ -100,6 +113,11 @@ namespace SleepingQueensTogether.ViewModels
             return user.IsValidLogin();
         }
 
+        private bool CanBiometricLogin()
+        {
+            return user.IsValidBiometric();
+        }
+
         private void Login()
         {
             if (!IsBusy)
@@ -107,6 +125,15 @@ namespace SleepingQueensTogether.ViewModels
                 user.Login();
                 OnPropertyChanged(nameof(IsBusy));
                 (LoginCommand as Command)?.ChangeCanExecute();
+            }
+        }
+        private void BiometricLogin()
+        {
+            if (!IsBusy)
+            {
+                user.LoginWithBiometrics();
+                OnPropertyChanged(nameof(IsBusy));
+                (BiometricLoginCommand as Command)?.ChangeCanExecute();
             }
         }
     }

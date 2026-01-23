@@ -58,5 +58,8 @@
         public const string empty = "Empty";
         public const string joker = "Joker";
         public const string dragon = "Dragon";
+        public const string unlock = "Unlock your account";
+        public const string confirmIdentity = "Confirm your identity to login";
+        public const string BiometricLogin = "Biometric Login";
     }
 }
