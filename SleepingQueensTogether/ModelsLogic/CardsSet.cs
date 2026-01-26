@@ -10,7 +10,7 @@ namespace SleepingQueensTogether.ModelsLogic
     public class CardsSet : CardsSetModel
     {
         private readonly Random rnd;
-        private Card selectedCard;
+        private CardView selectedCard;
         private readonly Card emptyCard;
 
         public CardsSet(bool full) : base()
@@ -35,32 +35,32 @@ namespace SleepingQueensTogether.ModelsLogic
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    cardsDeck.Add(new Card(Strings.number, j + 1));
+                    CardsDeck.Add(new Card(Strings.number, j + 1));
                 }
             }
             for (int i = 0; i < 7; i++)
             {
-                cardsDeck.Add(new Card(Strings.king, i + 1));
+                CardsDeck.Add(new Card(Strings.king, i + 1));
             }
             for (int i = 0; i < 4; i++)
             {
-                cardsDeck.Add(new Card(Strings.knight, i + 1));
+                CardsDeck.Add(new Card(Strings.knight, i + 1));
             }
             for (int i = 0; i < 3; i++)
             {
-                cardsDeck.Add(new Card(Strings.dragon, 1));
+                CardsDeck.Add(new Card(Strings.dragon, 1));
             }
             for (int i = 0; i < 5; i++)
             {
-                cardsDeck.Add(new Card(Strings.joker, 1));
+                CardsDeck.Add(new Card(Strings.joker, 1));
             }
             for (int i = 0; i < 4; i++)
             {
-                cardsDeck.Add(new Card(Strings.sleepingpotion, 1));
+                CardsDeck.Add(new Card(Strings.sleepingpotion, 1));
             }
             for (int i = 0; i < 3; i++)
             {
-                cardsDeck.Add(new Card(Strings.wand, 1));
+                CardsDeck.Add(new Card(Strings.wand, 1));
             }
         }
 
@@ -73,28 +73,28 @@ namespace SleepingQueensTogether.ModelsLogic
 
         public Card Add(Card card)
         {
-            card.Index = cardsDeck.Count;
-            card.Margin = new Thickness(50 + 30 * cardsDeck.Count, 0, 0, 0);
-            cardsDeck.Add(card);
+            card.Index = CardsDeck.Count;
+            card.MarginCard = new Thickness(50 + 30 * CardsDeck.Count, 0, 0, 0);
+            CardsDeck.Add(card);
             return card;
         }
 
         public Card TakeCard()
         {
             Card card = new();
-            if (cardsDeck.Count > 0)
+            if (CardsDeck.Count > 0)
             {
-                int index = rnd.Next(0, cardsDeck.Count);
-                card = cardsDeck[index];
-                cardsDeck.RemoveAt(index);
+                int index = rnd.Next(0, CardsDeck.Count);
+                card = CardsDeck[index];
+                CardsDeck.RemoveAt(index);
             }
             return card;
         }
 
-        public void SelectCard(Card card)
+        public void SelectCard(CardView card)
         {
             if (SingleSelect)
-                if (card.IsSelected)
+                if (card.Model.IsSelected)
                 {
                     selectedCard = emptyCard;
                     card?.ToggleSelected();
@@ -117,11 +117,11 @@ namespace SleepingQueensTogether.ModelsLogic
                 card = Card.Copy(selectedCard);
                 if (!selectedCard.IsEmpty)
                 {
-                    cardsDeck.Remove(selectedCard);
-                    for (int i = selectedCard.Index; i < cardsDeck.Count; i++)
+                    CardsDeck.Remove(selectedCard);
+                    for (int i = selectedCard.Index; i < CardsDeck.Count; i++)
                     {
-                        cardsDeck[i].Index = i;
-                        cardsDeck[i].Margin = new Thickness(cardsDeck[i].Margin.Left - 30, 0, 0, 0);
+                        CardsDeck[i].Index = i;
+                        CardsDeck[i].Margin = new Thickness(CardsDeck[i].Margin.Left - 30, 0, 0, 0);
                     }
                     selectedCard = emptyCard;
                 }

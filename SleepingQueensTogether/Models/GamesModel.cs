@@ -1,4 +1,5 @@
-﻿using Plugin.CloudFirestore;
+﻿using Java.Interop;
+using Plugin.CloudFirestore;
 using SleepingQueensTogether.ModelsLogic;
 using System.Collections.ObjectModel;
 
@@ -21,7 +22,7 @@ namespace SleepingQueensTogether.Models
         public abstract void AddGame();
         protected abstract void OnGameDeleted(object? sender, EventArgs e);
         protected abstract void OnComplete(Task task);
-        protected abstract void OnChange(IQuerySnapshot snapshot, Exception error);
+        protected abstract void OnChange(IQuerySnapshot snapshot, System.Exception error);
         protected abstract void OnComplete(IQuerySnapshot qs);
 
     }

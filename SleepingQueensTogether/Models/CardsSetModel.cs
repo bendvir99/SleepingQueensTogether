@@ -10,15 +10,14 @@ namespace SleepingQueensTogether.Models
 {
     public abstract class CardsSetModel
     {
-        protected readonly List<Card> cardsDeck;
-
-        public CardsSetModel() { cardsDeck = []; }
+        public List<Card> CardsDeck { get; set; } = [];
+        public CardsSetModel() { CardsDeck = []; }
 
         public bool SingleSelect { protected get; set; }
 
         public abstract void FillPackage();
         [Ignored]
-        public int Count => cardsDeck.Count;
+        public int Count => CardsDeck.Count;
         
     }
 }

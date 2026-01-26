@@ -55,10 +55,12 @@ namespace SleepingQueensTogether.ViewModels
 
         private void TakePackageCard()
         {
+            Console.WriteLine(game.Package.Count);
             Card card = game.TakeCard();
+            CardView cardView = new(card);
             if (card != null)
             {
-                grdMyCards.Add(card);
+                grdMyCards.Add(cardView);
                 //SelectCardEventArgs scea = new() { SelectedCard = card };
                 //card.CommandParameter = scea;
                 //card.Command = SelectCardCommand;

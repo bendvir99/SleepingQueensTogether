@@ -15,6 +15,7 @@ namespace SleepingQueensTogether.ModelsLogic
 
         internal Game()
         {
+            Console.WriteLine(Package.Count);
             myCards = new CardsSet(full: false)
             {
                 SingleSelect = false
@@ -23,13 +24,14 @@ namespace SleepingQueensTogether.ModelsLogic
             {
                 OnMessageReceived(m.Value);
             });
-            Package = new CardsSet(full: true);
+            //Package = new CardsSet(full: true);
 
         }
 
         internal Game(bool value)
         {
-            Package = new CardsSet(full: true);
+            Console.WriteLine(Package.Count);
+            //Package = new CardsSet(full: true);
             myCards = new CardsSet(full: false)
             {
                 SingleSelect = false
@@ -57,10 +59,8 @@ namespace SleepingQueensTogether.ModelsLogic
 
         public override void SetDocument(Action<System.Threading.Tasks.Task> OnComplete)
         {
-            Id = fbd.SetDocument(this, Keys.GamesCollection, Id, task =>
-            {
-                OnComplete(task);
-            });
+            Id = fbd.SetDocument(this, Keys.GamesCollection, Id, OnComplete);
+
         }
         public override void UpdateGuestUser(Action<Task> OnComplete)
         {

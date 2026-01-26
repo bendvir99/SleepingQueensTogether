@@ -5,12 +5,7 @@ namespace SleepingQueensTogether.ModelsLogic
 {
     public class Card : CardModel
     {
-        private const int OFFSET = 50;
-        private static readonly string[][] cardsImage = {
-        ["cakequeen.png","catqueen.png","dogqueen.png","heartqueen.png","ladybugqueen.png","moonqueen.png","pancakequeen.png","peacockqueen.png","rainbowqueen.png","rosequeen.png","starfishqueen.png","sunflowerqueen.png"],
-        ["one.png","two.png","three.png","four.png","five.png","six.png","seven.png","eight.png","nine.png","ten.png"],
-        ["kingone.png", "kingtwo.png", "kingthree.png", "kingfour.png", "kingfive.png", "kingsix.png", "kingseven.png", "knightone.png", "knighttwo.png", "knightthree.png", "knightfour.png", "dragon.png", "jester.png", "sleepingpotion.png", "wand.png"] };
-
+      
         public Card()
         {
             Type = Strings.empty;
@@ -19,15 +14,22 @@ namespace SleepingQueensTogether.ModelsLogic
         public Card(string type, int value)
         {
             Type = type;
-            if (type == Strings.queen)
+            Value = value;
+            ImageCard = SetImageCard();
+            
+        }
+
+        protected override string SetImageCard()
+        {
+            ImageCard = Type == Strings.queen ? cardsImage[0][Value]:
+                Type == Strings.number ? cardsImage[1][Value - 1] :
+            if (type == )
             {
-                ImageCard = cardsImage[0][value];
-                QueenValue = value;
+                ImageCard = 
             }
             else if (type == Strings.number)
             {
-                ImageCard = cardsImage[1][value - 1];
-                Value = value;
+                ImageCard = ;
             }
             else if (type == Strings.king)
             {
@@ -54,24 +56,18 @@ namespace SleepingQueensTogether.ModelsLogic
                 ImageCard = cardsImage[2][value + 13];
             }
         }
-        public override void ToggleSelected()
-        {
-            IsSelected = !IsSelected;
-            Thickness t = Margin;
-            t.Bottom = IsSelected ? OFFSET : 0;
-            Margin = t;
-        }
-        public static Card Copy(Card card)
-        {
-            Card newCard = new();
-            if (!card.IsEmpty)
-            {
-                newCard = new Card(card.Type, card.Value)
-                {
-                    Index = card.Index
-                };
-            }
-            return newCard;
-        }
+
+        //public static Card Copy(Card card)
+        //{
+        //    Card newCard = new();
+        //    if (!card.IsEmpty)
+        //    {
+        //        newCard = new Card(card.Type, card.Value)
+        //        {
+        //            Index = card.Index
+        //        };
+        //    }
+        //    return newCard;
+        //}
     }
 }

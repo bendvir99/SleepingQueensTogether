@@ -1,5 +1,4 @@
-﻿using Android.Locations;
-using Plugin.Fingerprint;
+﻿using Plugin.Fingerprint;
 using Plugin.Fingerprint.Abstractions;
 using SleepingQueensTogether.Models;
 

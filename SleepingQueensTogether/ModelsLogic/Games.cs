@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Alerts;
+using Java.Lang;
 using Plugin.CloudFirestore;
 using SleepingQueensTogether.Models;
 
@@ -40,7 +41,7 @@ namespace SleepingQueensTogether.ModelsLogic
         {
             ilr?.Remove();
         }
-        protected override void OnChange(IQuerySnapshot snapshot, Exception error)
+        protected override void OnChange(IQuerySnapshot snapshot, System.Exception error)
         {
             fbd.GetDocumentsWhereEqualTo(Keys.GamesCollection, nameof(GameModel.IsFull), false, OnComplete);
         }
@@ -56,6 +57,7 @@ namespace SleepingQueensTogether.ModelsLogic
             foreach (IDocumentSnapshot ds in qs.Documents)
             {
                 Game? game = ds.ToObject<Game>();
+                Console.WriteLine(game?.Package.Count);
                 if (game != null)
                 {
                     game.Id = ds.Id;
