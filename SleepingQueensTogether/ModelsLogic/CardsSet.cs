@@ -10,7 +10,7 @@ namespace SleepingQueensTogether.ModelsLogic
     public class CardsSet : CardsSetModel
     {
         private readonly Random rnd;
-        private CardView selectedCard;
+        private Card selectedCard;
         private readonly Card emptyCard;
 
         public CardsSet(bool full) : base()
@@ -71,13 +71,13 @@ namespace SleepingQueensTogether.ModelsLogic
             //    FillPakage();
         }
 
-        public Card Add(Card card)
-        {
-            card.Index = CardsDeck.Count;
-            card.MarginCard = new Thickness(50 + 30 * CardsDeck.Count, 0, 0, 0);
-            CardsDeck.Add(card);
-            return card;
-        }
+        //public Card Add(Card card)
+        //{
+        //    card.Index = CardsDeck.Count;
+        //    card.Margin = new Thickness(50 + 30 * CardsDeck.Count, 0, 0, 0);
+        //    CardsDeck.Add(card);
+        //    return card;
+        //}
 
         public Card TakeCard()
         {
@@ -94,7 +94,7 @@ namespace SleepingQueensTogether.ModelsLogic
         public void SelectCard(CardView card)
         {
             if (SingleSelect)
-                if (card.Model.IsSelected)
+                if (card.IsSelected)
                 {
                     selectedCard = emptyCard;
                     card?.ToggleSelected();

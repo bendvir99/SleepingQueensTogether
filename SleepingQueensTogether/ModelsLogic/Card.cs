@@ -9,53 +9,50 @@ namespace SleepingQueensTogether.ModelsLogic
         public Card()
         {
             Type = Strings.empty;
-            ImageCard = Strings.orangecard;
         }
         public Card(string type, int value)
         {
             Type = type;
-            Value = value;
-            ImageCard = SetImageCard();
-            
+            Value = value;            
         }
 
-        protected override string SetImageCard()
-        {
-            ImageCard = Type == Strings.queen ? cardsImage[0][Value]:
-                Type == Strings.number ? cardsImage[1][Value - 1] :
-            if (type == )
-            {
-                ImageCard = 
-            }
-            else if (type == Strings.number)
-            {
-                ImageCard = ;
-            }
-            else if (type == Strings.king)
-            {
-                ImageCard = cardsImage[2][value - 1];
-            }
-            else if (type == Strings.knight)
-            {
-                ImageCard = cardsImage[2][value + 6];
-            }
-            else if (type == Strings.dragon)
-            {
-                ImageCard = cardsImage[2][value + 10];
-            }
-            else if (type == Strings.joker)
-            {
-                ImageCard = cardsImage[2][value + 11];
-            }
-            else if (type == Strings.sleepingpotion)
-            {
-                ImageCard = cardsImage[2][value + 12];
-            }
-            else if (type == Strings.wand)
-            {
-                ImageCard = cardsImage[2][value + 13];
-            }
-        }
+        //protected override string SetImageCard()
+        //{
+        //    ImageCard = Type == Strings.queen ? cardsImage[0][Value]:
+        //        Type == Strings.number ? cardsImage[1][Value - 1] :
+        //    if (type == )
+        //    {
+        //        ImageCard = 
+        //    }
+        //    else if (type == Strings.number)
+        //    {
+        //        ImageCard = ;
+        //    }
+        //    else if (type == Strings.king)
+        //    {
+        //        ImageCard = cardsImage[2][value - 1];
+        //    }
+        //    else if (type == Strings.knight)
+        //    {
+        //        ImageCard = cardsImage[2][value + 6];
+        //    }
+        //    else if (type == Strings.dragon)
+        //    {
+        //        ImageCard = cardsImage[2][value + 10];
+        //    }
+        //    else if (type == Strings.joker)
+        //    {
+        //        ImageCard = cardsImage[2][value + 11];
+        //    }
+        //    else if (type == Strings.sleepingpotion)
+        //    {
+        //        ImageCard = cardsImage[2][value + 12];
+        //    }
+        //    else if (type == Strings.wand)
+        //    {
+        //        ImageCard = cardsImage[2][value + 13];
+        //    }
+        //}
 
         //public static Card Copy(Card card)
         //{

@@ -57,7 +57,10 @@ namespace SleepingQueensTogether.ViewModels
         {
             Console.WriteLine(game.Package.Count);
             Card card = game.TakeCard();
-            CardView cardView = new(card);
+            CardView cardView = new();
+            cardView.SetCardSource(card.Type, card.Value);
+            cardView.Margin = new Thickness(50 + 30 * game.Package.Count, 0, 0, 0);
+            cardView.Index = game.Package.Count;
             if (card != null)
             {
                 grdMyCards.Add(cardView);
